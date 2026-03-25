@@ -1,0 +1,106 @@
+@startuml UC03_UseCaseDiagram
+skinparam backgroundColor white
+skinparam defaultFontName Arial
+skinparam defaultFontSize 11
+skinparam usecase {
+  BackgroundColor #DAE8FC
+  BorderColor #6C8EBF
+  ArrowColor #333333
+}
+skinparam actor {
+  BackgroundColor #FFFFFF
+  BorderColor #333333
+}
+skinparam note {
+  BackgroundColor #FFF9C4
+  BorderColor #D6B656
+}
+
+title **Sơ đồ ca sử dụng — UC-03: Vận chuyển đơn hàng**\nHệ thống Quản lý Giao hàng Timely · LogiFast
+
+left to right direction
+
+' ============================================================
+' ACTORS
+' ============================================================
+
+actor "Tài xế\ngiao hàng" as Driver
+actor "Khách hàng\n(B2C)" as Customer
+actor "Đối tác B2B\n<<actor>>" as B2B
+actor "Hệ thống\nbản đồ\n<<actor>>" as Maps
+actor "Điều phối viên" as Coordinator
+
+note right of B2B
+  Sàn TMĐT (Shopee, Lazada...) nhận
+  cập nhật trạng thái vận chuyển
+  theo thời gian thực qua API/webhook.
+  Đơn hàng của họ đã được tạo ở UC-01.
+end note
+
+' ============================================================
+' SYSTEM BOUNDARY
+' ============================================================
+
+rectangle "Hệ thống Timely — Module Vận chuyển" {
+
+  ' ---- Các ca sử dụng chính (include) ----
+
+  usecase "UC-03\nVận chuyển đơn hàng" as UC03 #DAE8FC
+
+  usecase "UC-03a\nLấy hàng từ kho\n(xác nhận kiện qua QR)" as UC03a
+  usecase "UC-03b\nTheo dõi hành trình\nthời gian thực" as UC03b
+  usecase "UC-03c\nGiao nhận tại điểm đến\n(chụp bằng chứng + xác nhận)" as UC03c
+
+  ' ---- Các ca sử dụng mở rộng (extend) ----
+
+  usecase "UC-03d\nXử lý giao hàng thất bại\n(lên lịch giao lại / hoàn hàng)" as UC03d
+  usecase "UC-03e\nXử lý khách từ chối nhận hàng\n(hoàn hàng về kho)" as UC03e
+  usecase "UC-03f\nĐiều chỉnh lộ trình\n(phát hiện tắc nghẽn)" as UC03f
+  usecase "UC-03g\nBáo cáo và xử lý\nsự cố khẩn cấp" as UC03g
+
+  ' ---- Quan hệ include (UC-03 luôn bao gồm) ----
+  UC03 ..> UC03a : <<include>>
+  UC03 ..> UC03b : <<include>>
+  UC03 ..> UC03c : <<include>>
+
+  ' ---- Quan hệ extend (xảy ra có điều kiện) ----
+  UC03d .> UC03 : <<extend>>\n[Giao thất bại ≥ 1 lần]
+  UC03e .> UC03c : <<extend>>\n[Khách từ chối tại\nđiểm giao]
+  UC03f .> UC03b : <<extend>>\n[Phát hiện tắc nghẽn\ntrên lộ trình]
+  UC03g .> UC03 : <<extend>>\n[Tài xế báo sự cố\nkhẩn cấp]
+
+}
+
+' ============================================================
+' ACTOR - USE CASE ASSOCIATIONS
+' ============================================================
+
+' Tài xế: tham gia trực tiếp vào tất cả hoạt động vật lý
+Driver --> UC03
+Driver --> UC03a
+Driver --> UC03c
+Driver --> UC03d
+Driver --> UC03e
+Driver --> UC03g
+
+' Khách hàng B2C: theo dõi + nhận hàng
+Customer --> UC03b
+Customer --> UC03c
+
+' Đối tác B2B: nhận trạng thái vận chuyển qua API (read-only tracking)
+B2B --> UC03b
+
+' Hệ thống bản đồ: cung cấp dữ liệu giao thông để điều chỉnh lộ trình
+Maps --> UC03f
+
+' Điều phối viên: xử lý khi có sự cố khẩn cấp
+Coordinator --> UC03g
+
+note bottom of UC03b
+  B2C Khách hàng: theo dõi qua app giao diện người dùng.
+  B2B Đối tác: nhận cập nhật trạng thái theo thời gian thực
+  qua REST API / webhook (polling hoặc push notification).
+  Cả hai đều đọc cùng một nguồn dữ liệu GPS tracking.
+end note
+
+@enduml

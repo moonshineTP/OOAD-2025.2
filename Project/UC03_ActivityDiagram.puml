@@ -1,0 +1,265 @@
+@startuml UC03_ActivityDiagram
+skinparam backgroundColor white
+skinparam defaultFontName Arial
+skinparam defaultFontSize 11
+skinparam activity {
+  BackgroundColor #DAE8FC
+  BorderColor #6C8EBF
+  DiamondBackgroundColor #FFF2CC
+  DiamondBorderColor #D6B656
+}
+skinparam swimlane {
+  BorderColor #333333
+  TitleFontSize 13
+}
+skinparam ArrowColor #333333
+skinparam NoteBackgroundColor #FFF9C4
+skinparam NoteBorderColor #D6B656
+
+title **Sơ đồ hoạt động — UC-03: Vận chuyển đơn hàng**\nHệ thống Quản lý Giao hàng Timely · LogiFast
+
+' ============================================================
+' MAIN SUCCESS FLOW
+' ============================================================
+
+|#DAE8FC| Tài xế |
+
+start
+
+:Mở ứng dụng
+Xem danh sách đơn hàng trong chuyến
+Nhấn **"Bắt đầu lấy hàng"**;
+
+|#D5E8D4| Hệ thống Timely |
+
+:Ghi nhận thời điểm bắt đầu chuyến
+Cập nhật toàn bộ đơn hàng → **"Đang lấy hàng"**
+Bật GPS tracking;
+
+|Tài xế|
+
+:Đến kho
+Quét mã QR từng kiện hàng theo danh sách;
+
+|Hệ thống Timely|
+
+:Đối chiếu từng kiện với danh sách đơn hàng
+Xác nhận hợp lệ
+Cập nhật → **"Đã lấy hàng - Đang vận chuyển"**
+Ghi nhận thời gian lấy hàng;
+
+:Tính lộ trình tối ưu đến tất cả điểm giao
+(thứ tự ưu tiên: ETA, deadline SLA)
+Hiển thị bản đồ turn-by-turn cho Tài xế;
+
+|Tài xế|
+
+:Di chuyển theo lộ trình được gợi ý;
+
+|Hệ thống Timely|
+
+fork
+  :Cập nhật vị trí GPS mỗi 30 giây;
+fork again
+  :Tính lại ETA theo giao thông thực tế;
+fork again
+  :Gửi thông báo cho Khách hàng:
+  **"Tài xế đang đến — Dự kiến X phút"**;
+end fork
+
+|#FFF2CC| Khách hàng |
+
+:Nhận thông báo ETA
+Theo dõi vị trí Tài xế trên bản đồ;
+
+' ============================================================
+' A3: ĐIỀU CHỈNH LỘ TRÌNH (embedded trong giai đoạn di chuyển)
+' ============================================================
+
+|Hệ thống Timely|
+
+if (Phát hiện tắc nghẽn\ntrên lộ trình?) then (Có — A3)
+
+  :Tính lại lộ trình thay thế
+  Gửi cảnh báo cho Tài xế:
+  **"Phát hiện tắc nghẽn — Lộ trình đã cập nhật"**;
+
+  |Tài xế|
+
+  :Xem lộ trình mới
+  Xác nhận đi theo lộ trình mới
+  hoặc giữ nguyên lộ trình cũ;
+
+  |Hệ thống Timely|
+
+  if (ETA mới vượt\ndeadline SLA?) then (Có)
+    :Gửi thông báo delay cho Khách hàng
+    Cảnh báo Điều phối viên;
+    |#FFF2CC| Khách hàng |
+    :Nhận thông báo giao hàng bị trễ;
+    |Hệ thống Timely|
+  endif
+
+endif
+
+' ============================================================
+' E2: SỰ CỐ KHẨN CẤP (interrupt path - kiểm tra trước khi đến)
+' ============================================================
+
+|Tài xế|
+
+if (Xảy ra sự cố\nkhẩn cấp?) then (Có — E2)
+
+  :Nhấn **"Báo cáo sự cố khẩn cấp"**
+  Nhập mô tả sự cố
+  (Vị trí GPS tự động đính kèm);
+
+  |Hệ thống Timely|
+
+  :Cập nhật tất cả đơn hàng trong chuyến
+  → **"Gặp sự cố — Tạm dừng vận chuyển"**
+  Gửi cảnh báo khẩn cấp + vị trí GPS
+  cho Điều phối viên
+  Gửi thông báo delay cho tất cả Khách hàng;
+
+  |#F8CECC| Điều phối viên |
+
+  :Đánh giá tình huống
+  Quyết định: phân công Tài xế thay thế
+  (kích hoạt lại UC-02)
+  hoặc lên lịch giao lại toàn bộ đơn hàng;
+
+  stop
+
+else (Không)
+
+' ============================================================
+' TIẾP THEO: ĐẾN ĐIỂM GIAO
+' ============================================================
+
+  |Tài xế|
+
+  :Đến điểm giao hàng
+  Nhấn **"Đã đến điểm giao"**;
+
+  |Hệ thống Timely|
+
+  :Gửi thông báo push / SMS cho Khách hàng:
+  **"Tài xế đã đến. Vui lòng ra nhận hàng."**;
+
+  |Khách hàng|
+
+  :Nhận thông báo **"Tài xế đã đến"**;
+
+  ' ============================================================
+  ' DECISION 1: LIÊN LẠC ĐƯỢC KHÁCH HÀNG?
+  ' ============================================================
+
+  |Tài xế|
+
+  if (Liên lạc được\nKhách hàng?) then (Không — A1)
+
+    :Gọi điện 3 lần, không có phản hồi
+    Chụp ảnh địa điểm (GPS tự động đính kèm)
+    Nhấn **"Giao thất bại — Không liên lạc được"**;
+
+    |Hệ thống Timely|
+
+    :Cập nhật → **"Giao thất bại lần 1"**
+    Gửi SMS / thông báo cho Khách hàng:
+    "Chúng tôi đã đến nhưng không liên lạc được.
+    Vui lòng liên hệ để sắp xếp giao lại."
+    Tự động lên lịch giao lại ngày tiếp theo;
+
+    |Tài xế|
+
+    if (Đây là thất bại\nlần thứ 2?) then (Có — Hoàn hàng)
+
+      :Nhấn **"Hoàn hàng về kho — Thất bại lần 2"**;
+
+      |Hệ thống Timely|
+
+      :Cập nhật → **"Hoàn hàng"**
+      Thông báo Điều phối viên và Kế toán;
+
+      |Tài xế|
+
+      :Trả hàng về kho
+      Quét xác nhận hoàn hàng tại kho;
+
+      stop
+
+    else (Không — Lên lịch lại)
+
+      stop
+
+    endif
+
+  else (Có)
+
+    ' ============================================================
+    ' DECISION 2: KHÁCH HÀNG CÓ NHẬN HÀNG?
+    ' ============================================================
+
+    if (Khách hàng\nnhận hàng?) then (Từ chối — A2)
+
+      :Chụp ảnh chứng minh
+      Chọn lý do từ chối trong ứng dụng
+      Nhấn **"Khách từ chối nhận hàng"**;
+
+      |Hệ thống Timely|
+
+      :Cập nhật → **"Từ chối nhận hàng"**
+      Thông báo Điều phối viên và bộ phận Kế toán
+      kèm lý do từ chối;
+
+      :Gán nhiệm vụ **"Trả hàng về kho"** cho Tài xế
+      Cập nhật lộ trình bổ sung điểm hoàn hàng;
+
+      |Tài xế|
+
+      :Trả hàng về kho
+      Quét xác nhận hoàn hàng tại kho;
+
+      stop
+
+    else (Nhận — Luồng chính)
+
+      ' ============================================================
+      ' SUCCESS PATH
+      ' ============================================================
+
+      :Bàn giao hàng hóa cho Khách hàng
+      Chụp ảnh bằng chứng giao hàng
+      (ảnh kiện hàng tại địa điểm / ảnh cùng người nhận)
+      Nhập tên người nhận
+      Nhấn **"Xác nhận giao thành công"**;
+
+      |Hệ thống Timely|
+
+      :Lưu bằng chứng giao hàng
+      Cập nhật → **"Giao thành công"**
+      Ghi nhận timestamp hoàn tất
+      Kích hoạt sự kiện SK-04 "Xác nhận giao hàng";
+
+      fork
+        :Gửi xác nhận giao thành công
+        cho Khách hàng và Điều phối viên;
+      fork again
+        :Hiển thị điểm giao tiếp theo
+        trên bản đồ (nếu còn đơn trong chuyến);
+      end fork
+
+      |Khách hàng|
+
+      :Nhận xác nhận giao hàng thành công;
+
+      stop
+
+    endif
+
+  endif
+
+endif
+
+@enduml
