@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3:*)",
+      "Bash(pip3 install:*)",
+      "Bash(python3 -c \":*)",
+      "Bash(mkdir -p '/mnt/c/Users/admin/Desktop/slide kỳ 6/OOAD/.claude/commands')",
+      "Bash(mkdir -p '/mnt/c/Users/admin/Desktop/slide kỳ 6/OOAD/docs')",
+      "Bash(pip install:*)"
+    ]
+  },
+  "outputStyle": "default",
+  "spinnerTipsEnabled": true,
+  "prefersReducedMotion": false
+}
