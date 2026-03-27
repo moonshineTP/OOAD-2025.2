@@ -1,3 +1,4 @@
 Project/*.docx
 Project/*.pdf
 Project/Diagrams
+*.py

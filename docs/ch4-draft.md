@@ -415,7 +415,8 @@ Chương được tổ chức thành 5 mục, mỗi mục tương ứng với m�
 | 4.3.5 | UC-05: Giao hàng hoàn tất / Thanh toán | Nguyễn Ngọc Toàn |
 
 Mỗi mục trình bày theo thứ tự:
-1. Sơ đồ đối tượng minh họa kịch bản
-2. Sơ đồ lớp lĩnh vực của UC
-3. Kịch bản sử dụng cụ thể
-4. Thẻ CRC cho các lớp chính trong UC
+1. Kịch bản sử dụng cụ thể (happy path)
+2. Sơ đồ đối tượng minh họa kịch bản
+3. Sơ đồ lớp lĩnh vực của UC
+4. Sơ đồ tuần tự hệ thống (SSD)
+5. Thẻ CRC cho các lớp chính trong UC

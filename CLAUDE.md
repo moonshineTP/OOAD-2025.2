@@ -124,6 +124,7 @@ docs/                                     # Agent reference docs (generated)
 | Sơ đồ lớp | Class Diagram |
 | Sơ đồ đối tượng | Object Diagram |
 | Sơ đồ hoạt động | Activity Diagram |
+| Kịch bản sử dụng | Scenario |
 | Sơ đồ tuần tự mức hệ thống (SSD) | System Sequence Diagram |
 | Sơ đồ tuần tự mức nghiệp vụ | Business-level Sequence Diagram |
 | Sơ đồ giao tiếp | Communication Diagram |
