@@ -1,0 +1,495 @@
+[  0] [            ]    ĐẠI HỌC BÁCH KHOA HÀ NỘI 
+[  1] [            ] TRƯỜNG CÔNG NGHỆ THÔNG TIN VÀ TRUYỀN THÔNG
+[  2] [            ] ************
+[  3] [            ] 
+[  4] [            ] 
+[  5] [            ] BÁO CÁO BÀI TẬP LỚN
+[  6] [            ] TÊN ĐỀ TÀI: HỆ THỐNG QUẢN LÝ GIAO HÀNG
+[  7] [            ]  
+[  8] [            ] Tên học phần: Phân tích và thiết kế hệ thống           Mã học phần: IT3120
+[  9] [            ] Tên GVHD: Nguyễn Bá Ngọc
+[ 10] [            ] Mã lớp học: 167831           
+[ 11] [            ] Nhóm sinh viên thực hiện: Ricons
+[ 12] [            ]                                             
+[ 13] TBL r0: ['Họ và tên', 'MSSV']
+[ 13] TBL r1: ['Trương Văn Hồng', '']
+[ 13] TBL r2: ['Nguyễn Quý Duy', '']
+[ 13] TBL r3: ['Phạm Gia Hưng', '']
+[ 13] TBL r4: ['Đinh Việt Hùng', '']
+[ 13] TBL r5: ['Nguyễn Ngọc Toàn', '']
+[ 14] [            ] 
+[ 15] [            ] Hà Nội, ngày 10 tháng 3 năm 2026
+[ 16] [Title       ] Phần I: Phân tích
+[ 17] [Heading1    ] Phân chia nhiệm vụ các thành viên
+[ 18] [            ] 
+[ 19] TBL r0: ['Họ và tên', 'Nhiệm vụ']
+[ 19] TBL r1: ['Trương Văn Hồng', 'UC-01']
+[ 19] TBL r2: ['Nguyễn Quý Duy', 'UC-02']
+[ 19] TBL r3: ['Phạm Gia Hưng', 'UC-03']
+[ 19] TBL r4: ['Đinh Việt Hùng', 'UC-04']
+[ 19] TBL r5: ['Nguyễn Ngọc Toàn', 'UC-05']
+[ 20] [            ] 
+[ 21] [Heading1    ] II. Môi trường hệ thống
+[ 22] [Heading2    ] Môi trường và Tính cấp thiết của Hệ thống
+[ 23] [Heading3    ] Bối cảnh doanh nghiệp khách hàng.
+[ 24] [            ] Công ty Logistics Cần Giờ (LogiFast) hiện đang vận hành trong một hệ sinh thái giao nhận đầy biến động tại khu vực miền Nam. Môi trường kinh doanh của công ty mang tính chất lưỡng cực, nhiều nguồn và có nhiều cạnh tranh. Một mặt, LogiFast phục vụ mảng B2C thông qua việc cung cấp dịch vụ vận chuyển cho mạng lưới các đại lý bán lẻ và cửa hàng tiện lợi, chủ yếu tập trung vào các mặt hàng tiêu dùng nhanh và hàng hóa có hạn sử dụng cao. Mặt khác, ở phân khúc B2B, công ty đóng vai trò là mắt xích "chặng cuối" (last-mile delivery) thiết yếu cho các sàn thương mại điện tử lớn khi các đơn vị này chưa tự xây dựng được hạ tầng vận hành tại địa phương. Sự đan xen này tạo ra một áp lực vận hành khổng lồ, khi số lượng khách hàng mong muốn dịch vụ giao hàng trong khu vực ngày càng tăng lên.
+[ 25] [            ] Thách thức lớn nhất mà LogiFast đang phải đối mặt không chỉ đến từ khối lượng đơn hàng tăng đột biến mà còn từ sự đứt gãy trong hệ thống quản trị hiện tại. Đội ngũ điều phối đang phải vật lộn với một "mớ bòng bong" các công cụ rời rạc. Dữ liệu đơn hàng được tiếp nhận phân tán qua API từ đối tác B2B lớn, nhưng lại xen lẫn với các file Excel thủ công từ đại lý nhỏ hoặc thậm chí là những ghi chú tay vội vã. Khi triển khai thực địa, tài xế phải tự xoay xở giữa ứng dụng bản đồ cá nhân để tìm đường, sử dụng các ứng dụng theo dõi hành trình không đồng bộ và ghi chép trạng thái giao hàng vào sổ tay riêng. Sự thiếu vắng một "nguồn sự thật duy nhất" (Single Source of Truth) dẫn đến tình trạng phân mảnh dữ liệu nghiêm trọng, khiến việc kiểm soát sai sót và trùng lặp đơn hàng trở nên tiêu tốn nguồn lực kinh khủng mỗi ngày.
+[ 26] [            ] Hệ quả tất yếu của việc phụ thuộc vào kinh nghiệm cá nhân và các công cụ rời rạc là chi phí vận hành leo thang trong khi hiệu suất chạm ngưỡng giới hạn. Việc điều phối hiện tại hoàn toàn thiếu vắng các thuật toán tối ưu tuyến đường, gây lãng phí nhiên liệu và khấu hao phương tiện không cần thiết. Áp lực về thời gian càng trở nên đè nặng khi công ty không thể cung cấp thời gian đến dự kiến chính xác dựa trên điều kiện giao thông thực tế, làm ảnh hưởng trực tiếp đến uy tín với các đối tác B2B. Những rủi ro trong việc quản lý bằng chứng giao hàng bằng hình ảnh hay tọa độ GPS càng làm gia tăng khả năng xảy ra khiếu nại và khó khăn trong đối soát tài chính.
+[ 27] [            ] Hơn cả việc giải quyết những "nỗi đau" hiện tại, việc đầu tư vào một hệ thống thông tin tập trung còn mang tầm vóc chiến lược cho tham vọng mở rộng của LogiFast. Ban lãnh đạo công ty đã xác định rõ mục tiêu chuyển mình sang mảng giao đồ ăn (food delivery) và các dịch vụ yêu cầu tính thời gian cực kỳ khắt khe trong tương lai gần. Đây là một lĩnh vực đòi hỏi khả năng xử lý quy tắc nghiệp vụ phức tạp hơn gấp nhiều lần, bao gồm điều phối nhân sự theo ca làm việc, hỗ trợ hoạt động xuyên đêm và ngày lễ, cũng như lập kế hoạch lộ trình linh hoạt theo từng phút. Nếu không số hóa và thống nhất nền tảng ngay từ bây giờ, LogiFast sẽ không thể tận dụng được kinh nghiệm của phòng IT nội bộ để xây dựng một hệ thống có khả năng mở rộng linh hoạt, đủ sức gánh vác những nghiệp vụ phức tạp của tương lai.
+[ 28] [            ] 
+[ 29] [Heading3    ] Tổng kết khó khăn Khách hàng gặp phải và Giới hạn của Hệ thống cũ
+[ 30] [            ] Trong bối cảnh thương mại điện tử bùng nổ, việc duy trì các phương thức quản lý truyền thống đang bộc lộ nhiều hạn chế, buộc công ty phải tìm đến giải pháp công nghệ:
+[ 31] [            ] ●      Đa kênh bán hàng nhưng thiếu tập trung: Việc tiếp nhận và xử lý đơn hàng từ nhiều nguồn khác nhau-như API từ sàn TMĐT B2B, file Excel hoặc ghi chú thủ công từ các đại lý bán lẻ B2C, và dữ liệu từ các ứng dụng bản đồ, theo dõi, ghi chú riêng rẽ-dẫn đến sự phân mảnh dữ liệu, khó kiểm soát và dễ xảy ra sai sót, trùng lặp.
+[ 32] [            ] ●      Chi phí vận hành tăng cao và hiệu suất thấp: Việc điều phối vận tải hiện tại phụ thuộc vào kinh nghiệm cá nhân và sử dụng các công cụ rời rạc (Excel, Notes, Maps), dẫn đến việc không có thuật toán tối ưu tuyến đường. Điều này gây lãng phí đáng kể chi phí xăng dầu, khấu hao phương tiện và thời gian của tài xế.
+[ 33] [            ] ●      Áp lực về Thời gian Giao hàng (SLA): Khách hàng (đặc biệt là đối tác B2B) đòi hỏi độ chính xác cao về thời gian. Việc thiếu tính năng hiệu chỉnh ETA (thời gian đến dự kiến) dựa trên điều kiện giao thông thực tế và hệ thống giám sát tập trung khiến doanh nghiệp khó kiểm soát và cam kết chính xác với khách hàng.
+[ 34] [            ] ●      Rủi ro trong Quản lý Tài xế và Minh bạch: Thiếu cơ chế giám sát vị trí, hành trình, và xác thực bằng chứng giao hàng bằng hình ảnh/GPS dễ dẫn đến tình trạng thiếu minh bạch trong vận hành, khó khăn trong việc đối soát và xử lý khiếu nại.
+[ 35] [            ]  
+[ 36] [Heading2    ] Tính cấp thiết và Lý do Lựa chọn Hệ thống Thông tin
+[ 37] [            ] Việc chuyển đổi sang hệ thống thông tin tập trung là một yêu cầu cấp thiết, không chỉ để giải quyết những 'nỗi đau' hiện tại mà còn là chiến lược để đảm bảo khả năng mở rộng trong tương lai:
+[ 38] [            ] ●      Đột phá khả năng mở rộng: Hệ thống hiện tại đã chạm ngưỡng giới hạn. Việc triển khai giải pháp mới sẽ cho phép công ty tự động hóa quy trình, tối ưu hóa điều phối, và quản lý khối lượng đơn hàng tăng gấp nhiều lần mà không cần tăng tuyến tính số lượng nhân sự.
+[ 39] [            ] ●      Đảm bảo tính chính xác và loại bỏ dư thừa dữ liệu: Hệ thống mới sẽ thiết lập một Nguồn Sự Thật Duy Nhất (Single Source of Truth), tự động hóa quá trình tiếp nhận và xử lý đơn hàng từ nhiều kênh (B2B API, Excel thủ công), loại bỏ hoàn toàn tình trạng trùng lặp, sai sót dữ liệu và sự phân mảnh thông tin hiện tại.
+[ 40] [            ] ●      Chuẩn bị cho tương lai: Hệ thống cần được thiết kế để cân nhắc khả năng mở rộng sang giao đồ ăn và các loại hình dịch vụ yêu cầu tính thời gian cao hơn, bao gồm hỗ trợ ca làm đêm hoặc điều phối nhân lực trong ngày lễ. Điều này đòi hỏi hệ thống phải có tính linh hoạt cao trong việc quản lý quy tắc nghiệp vụ, lập kế hoạch lộ trình phức tạp và quản lý nhân sự theo ca.
+[ 41] [            ]  
+[ 42] [Heading2    ] Giá trị kỳ vọng mang lại
+[ 43] [            ] Hệ thống được kỳ vọng sẽ tạo ra những chuyển biến tích cực cho quy trình vận hành của doanh nghiệp. Hai điểm mấu chốt được kỳ vọng sẽ tiến bộ là sự chính xác và hiệu quả. Thứ nhất, hệ thống cần đạt đến sự chính xác tuyệt đối trong việc đóng gói và xử lý thông tin lĩnh vực. Thứ hai là xây dựng luồng nghiệp vụ mượt mà và giảm các nút cổ chai trong xử lý. Kết quả cần đạt là sự tiện lợi và hiệu quả công việc, tính trên cả ba tác nhân: doanh nghiệp, tài xế và người nhận.
+[ 44] [Heading3    ] Đối với Doanh nghiệp
+[ 45] [            ] ●      Tối ưu hóa nguồn lực: Tự động hóa các khâu từ tạo đơn đến phân công giao hàng, giúp giảm thiểu đội ngũ nhân sự quản lý trung gian nhưng vẫn đảm bảo năng suất cao.
+[ 46] [            ] ●      Ra quyết định dựa trên dữ liệu: Thông qua các báo cáo thống kê và đánh giá hiệu suất tài xế, quản trị viên có thể điều chỉnh chiến lược vận hành, khen thưởng/xử phạt dựa trên các con số minh bạch.
+[ 47] [            ] ●      Khả năng mở rộng: Hệ thống lưu trữ hồ sơ vĩnh viễn và chỉ mục tìm kiếm nhanh cho phép doanh nghiệp quản lý hàng triệu đơn hàng mà vẫn đảm bảo tốc độ tra cứu và kiểm toán.
+[ 48] [Heading3    ] Đối với Tài xế
+[ 49] [            ] ●      Công bằng và hiệu quả: Việc phân công tự động theo khoảng cách giúp tài xế nhận đơn phù hợp nhất, giảm quãng đường chạy rỗng và tăng thu nhập thực tế.
+[ 50] [            ] ●      Hỗ trợ vận hành: Các tính năng lập kế hoạch lộ trình và tái điều phối giúp tài xế giảm bớt áp lực khi gặp sự cố trên đường.
+[ 51] [Heading3    ] Đối với Khách hàng
+[ 52] [            ] ●      Trải nghiệm minh bạch: Khách hàng có thể chủ động theo dõi hành trình trên bản đồ, biết chính xác vị trí tài xế và thời gian nhận hàng, giúp giảm bớt lo lắng và tăng mức độ hài lòng với dịch vụ.
+[ 53] [            ] ●      Giao tiếp chủ động: Hệ thống tự động thông báo khi có thay đổi về ETA hoặc sự cố giao hàng, giúp khách hàng chủ động sắp xếp thời gian nhận hàng
+[ 54] [            ]  
+[ 55] [            ] Với những điểm đến này, dự án Hệ thống Quản lý Giao hàng Timely được triển khai. Sau khi đã thu thập các tài liệu trao đổi, qua pha lập kế hoạch dự án, các kỹ sư phần mềm đảm nhiệm hai pha tiếp theo là Phân tích và Thiết kế Hệ thống.
+[ 56] [Heading2    ]  
+[ 57] [Heading2    ] Cơ cấu tổ chức và Luồng thông tin vận hành
+[ 58] [            ] Để hiểu rõ cách hệ thống thông tin mới sẽ tích hợp vào môi trường vận hành của LogiFast, cần thiết phải có một bức tranh rõ ràng về cơ cấu tổ chức nội bộ và cách thông tin lưu chuyển giữa các bộ phận. LogiFast được tổ chức theo mô hình phân cấp chức năng với năm nhóm đơn vị chính, trong đó mỗi nhóm nắm giữ một phần trách nhiệm riêng biệt trong chu trình vận hành giao nhận - từ thời điểm tiếp nhận đơn hàng cho đến khi khoản thanh toán cuối cùng được đối soát và ghi nhận đầy đủ.
+[ 59] [Heading3    ] Cơ cấu tổ chức
+[ 60] [            ] Ở cấp cao nhất là Ban lãnh đạo, đứng đầu là Giám đốc - người đặt ra định hướng chiến lược và phê duyệt các quyết định đầu tư lớn như dự án hệ thống thông tin này. Ngay phía dưới là Phòng Vận hành, bộ phận trung tâm của toàn bộ hoạt động giao nhận hằng ngày. Phòng Vận hành bao gồm Quản lý Vận hành - người chịu trách nhiệm tổng thể về, hiệu suất điều phối và can thiệp sự cố ngoài tầm kiểm soát của hệ thống tự động. Phòng Kế toán - Tài chính là bộ phận chịu trách nhiệm toàn bộ về minh bạch dòng tiền và đối soát. Cuối cùng là các Điều phối viên, những người theo dõi sát sao tiến độ phân công và xử lý các tình huống đặc biệt như tuyến đường bị gián đoạn hay tài xế gặp sự cố kỹ thuật.
+[ 61] [            ] Dưới Phòng Vận hành là Đội Tài xế, lực lượng trực tiếp thực thi việc giao nhận hàng hóa ngoài thực địa. Tài xế - hay còn gọi là Shipper trong bối cảnh xác nhận giao hàng - là tác nhân duy nhất có mặt ở cả ba giai đoạn vật lý của đơn hàng: lấy hàng tại kho, vận chuyển trên đường và bàn giao tại điểm đến.
+[ 62] [            ] Cuối cùng là Phòng Công nghệ Thông tin, bộ phận duy trì hạ tầng kỹ thuật vận hành hệ thống, xử lý các lỗi và đảm bảo tính liên tục của toàn bộ dịch vụ kỹ thuật số mà hệ thống phụ thuộc vào.
+[ 63] [Heading3    ] Luồng thông tin vận hành
+[ 64] [            ] Luồng thông tin trong LogiFast tuân theo một chu trình có thứ tự chặt chẽ, trong đó mỗi sự kiện nghiệp vụ tạo ra một khối dữ liệu mới được truyền sang giai đoạn tiếp theo. Không có bộ phận nào hoạt động hoàn toàn độc lập - thông tin từ việc đặt đơn của khách hàng phải đi qua tay Phòng Vận hành trước khi đến tay tài xế, và thông tin từ thực địa phải quay ngược về Phòng Kế toán để hoàn tất vòng đời tài chính của đơn hàng.
+[ 65] [            ] Vòng đời thông tin của một đơn hàng bắt đầu khi Khách hàng - hoặc hệ thống API của đối tác B2B - gửi yêu cầu đặt hàng vào hệ thống. Tại đây, Phòng Vận hành nhận được thông tin đầu tiên dưới dạng một bản ghi đơn hàng bao gồm địa chỉ giao, giá trị và hình thức thanh toán. Hệ thống kiểm tra tính hợp lệ và tạo mã đơn hàng duy nhất, đồng thời chuyển trạng thái đơn sang "Sẵn sàng giao" - tín hiệu kích hoạt giai đoạn tiếp theo.
+[ 66] [            ] Ngay khi tín hiệu đó xuất hiện, hệ thống điều phối thuộc Phòng Vận hành bắt đầu quét danh sách tài xế đang trống phù hợp. Thông tin được tổng hợp từ ba nguồn: vị trí GPS hiện tại của từng tài xế, tải trọng xe còn trống và lịch sử hiệu suất giao hàng. Thuật toán tính toán điểm ưu tiên và chọn tài xế phù hợp nhất, sau đó đẩy yêu cầu nhận đơn xuống ứng dụng của tài xế đó. Quản lý Vận hành và Điều phối viên nhận được bản tóm tắt trạng thái phân công và chỉ can thiệp thủ công khi hệ thống không tìm được tài xế trong phạm vi cho phép.
+[ 67] [            ] Sau khi tài xế chấp nhận đơn và khởi hành từ kho, Hệ thống theo dõi bắt đầu cập nhật vị trí GPS liên tục. Thông tin này được xử lý theo hai hướng song song: một hướng đẩy bản đồ thời gian thực đến giao diện của Khách hàng để họ theo dõi vị trí tài xế, hướng còn lại cung cấp dữ liệu giao thông cho hệ thống điều phối để liên tục hiệu chỉnh ETA và đề xuất lộ trình tối ưu hơn nếu cần. Điều phối viên có thể quan sát toàn bộ bản đồ vận hành theo thời gian thực và chủ động liên hệ tài xế nếu phát hiện bất thường so với lộ trình đã lên kế hoạch.
+[ 68] [            ] Khi hàng được giao thành công và Shipper xác nhận trên ứng dụng - kèm bằng chứng là hình ảnh và chữ ký hoặc OTP của người nhận - thông tin xác nhận được ghi nhận vào hệ thống và kích hoạt luồng tài chính. Phòng Kế toán - Tài chính nhận tín hiệu giao hàng hoàn tất và bắt đầu xử lý: tính phí dịch vụ, trích hoa hồng, cập nhật số dư ví điện tử của tài xế và ghi vào sổ cái công nợ của đối tác B2B. Toàn bộ chứng từ điện tử được lưu trữ tự động, sẵn sàng phục vụ kiểm toán hoặc xử lý khiếu nại sau này. Với cấu trúc luồng thông tin này, không một bộ phận nào có thể trở thành điểm mù trong hệ thống - mọi sự kiện đều để lại dấu vết kỹ thuật số có thể truy vết ngược lại.
+[ 69] [            ] 
+[ 70] [            ] 
+[ 71] [            ] 
+[ 72] [Heading1    ] Mô hình hóa chức năng
+[ 73] [Heading1    ] 1. Tổng quan hệ thống
+[ 74] [            ] Hệ thống Quản lý Giao hàng Timely được quyết định sẽ phân tích mô hình hóa chức năng theo phương pháp Hướng Sự kiện. Trong mô hình này, toàn bộ luồng nghiệp vụ được tổ chức xung quanh năm sự kiện nghiệp vụ chính, mỗi sự kiện đánh dấu một mốc quan trọng trong vòng đời của đơn hàng. Mỗi sự kiện khi xảy ra sẽ đồng thời kích hoạt nhiều use case xử lý độc lập nhau.
+[ 75] [            ] Tài liệu này phân tích toàn bộ năm sự kiện chính, bóc tách mỗi sự kiện thành các use case cụ thể với đầy đủ: mục tiêu ,actor,luồng chính, luồng thay thế, luồng ngoại lệ.
+[ 76] [            ] 
+[ 77] [            ] 
+[ 78] [Heading2    ] 1.1. Phạm vi hệ thống
+[ 79] TBL r0: ['Phạm vi', 'Mô tả']
+[ 79] TBL r1: ['Điểm vào', 'Khách hàng xác nhận đặt đơn hàng']
+[ 79] TBL r2: ['Điểm ra chính', 'Giao hàng thành công, khách hàng đã nhận hàng']
+[ 79] TBL r3: ['Điểm ra ngoại lệ', 'Giao thất bại đã xử lý, đơn hàng đã hủy, khiếu nại đã đóng']
+[ 79] TBL r4: ['Ngoài phạm vi', 'Quản lý kho hàng, quản lý nhà cung cấp, chuỗi cung ứng']
+[ 80] [            ] 
+[ 81] [            ] 
+[ 82] [Heading2    ] 1.2. Tổng hợp sự kiện và use case
+[ 83] TBL r0: ['Mã SK', 'Tên sự kiện', 'Tên use case']
+[ 83] TBL r1: ['SK-01', 'Đặt đơn hàng', 'UC-01 : Đặt đơn hàng']
+[ 83] TBL r2: ['SK-02', 'Phân công giao hàng', 'UC-02 : Phân công giao hàng']
+[ 83] TBL r3: ['SK-03', 'Vận chuyển đơn hàng', 'UC-03 : Vận chuyển đơn hàng']
+[ 83] TBL r4: ['SK-04', 'Xác nhận giao hàng', 'UC-04 : Xác nhận giao hàng']
+[ 83] TBL r5: ['SK-05', 'Thanh toán đơn hàng', 'UC-05 : Thanh toán đơn hàng']
+[ 84] [            ] 
+[ 85] [Heading2    ] 1.3. Sơ đồ ca sử dụng
+[ 86] [            ] 
+[ 87] [Heading1    ] 2.. Phân tích Actor (Chủ thể)
+[ 88] [            ] Hệ thống có năm nhóm chủ thể chính. Mỗi chủ thể được định nghĩa bởi phạm vi trách nhiệm và danh sách hành động được phép thực hiện trong hệ thống.
+[ 89] [            ] 
+[ 90] TBL r0: ['Chủ thể', 'Vai trò', 'Hành động chính']
+[ 90] TBL r1: ['Khách hàng', 'Chủ thể khởi động toàn bộ quá trình', 'UC-01 ,UC-05']
+[ 90] TBL r2: ['Tài xế giao hàng', 'Người thực hiện giao hàng vật lý', 'UC-02,UC-03,UC-04']
+[ 90] TBL r3: ['Hệ thống điều phối', 'Chủ thể nội bộ tối ưu vận trù tự động', 'UC-02, UC-03']
+[ 90] TBL r4: ['Hệ thống theo dõi', 'Chủ thể nội bộ giám sát hành trình thời gian thực', 'UC-03']
+[ 90] TBL r5: ['Hệ thống thanh toán', 'Chủ thể xử lý giao dịch tài chính', 'UC-05']
+[ 91] [            ] 
+[ 92] [            ] 
+[ 93] [            ] 
+[ 94] [Heading1    ] 3. Phân tích chi tiết Use Case theo từng Sự kiện
+[ 95] [            ] Mỗi sự kiện được phân tích đầy đủ thành các use case cụ thể. Mỗi use case được đặc tả theo bảng chuẩn bao gồm: actor, mô tả, mục tiêu, tiền điều kiện, hậu điều kiện, luồng chính, luồng thay thế, luồng ngoại lệ và dữ liệu sử dụng.
+[ 96] [            ] 
+[ 97] [Heading2    ] 3.1. Sự kiện 01 -Đặt đơn hàng
+[ 98] [            ] Sự kiện này được phát khi khách hàng hoàn tất quá trình chọn hàng và xác nhận đặt đơn. Đây là điểm khởi đầu của toàn bộ vòng đời giao hàng .
+[ 99] [            ] Mục tiêu của usecase : Tạo ra một đơn hàng hợp lệ trong hệ thống và kích hoạt luồng xử lý phía sau
+[100] [            ] 
+[101] [            ] Mục tiêu của các tác nhân khi tham gia usecase : 
+[102] [            ] Khách hàng (Actor chính):
+[103] [            ] Hoàn tất việc đặt mua các sản phẩm đã chọn một cách nhanh chóng và an toàn.
+[104] [            ] Nhận được sự xác nhận chính thức từ hệ thống rằng đơn hàng đã được tiếp nhận thành công.
+[105] [            ] Đảm bảo các thông tin cá nhân, địa chỉ giao hàng và giá trị đơn hàng được ghi nhận chính xác.
+[106] [            ] Hệ thống quản lý đơn hàng (Actor phụ):
+[107] [            ] Tự động hóa kiểm soát: Kiểm tra tính hợp lệ của dữ liệu mà không cần sự can thiệp thủ công (kiểm tra tồn kho, định dạng số điện thoại, địa chỉ...).
+[108] [            ] Đảm bảo tính nhất quán: Cập nhật trạng thái hệ thống và đồng bộ hóa thông tin với các module khác (như Kho vận, Kế toán).
+[109] [            ] Quản lý rủi ro: Phát hiện và ngăn chặn các trường hợp đặt hàng lỗi (hết hàng giữa chừng, lỗi thanh toán) để tránh gây phiền hà cho khách hàng và thiệt hại cho doanh nghiệp.
+[110] [            ] 
+[111] [            ] 
+[112] TBL r0: ['USE CASE: Đặt đơn hàng']
+[112] TBL r1: ['Use Case ID', 'UC-01']
+[112] TBL r2: ['Tên Use Case', 'Đặt đơn hàng']
+[112] TBL r3: ['Actor chính', 'Khách hàng']
+[112] TBL r4: ['Actor phụ', 'Hệ thống quản lý đơn hàng']
+[112] TBL r5: ['Mô tả', 'Khách hàng xem lại và xác nhận thông tin đơn hàng, hệ thống kiểm tra tính hợp lệ rồi chính thức tạo đơn']
+[112] TBL r6: ['Mục tiêu', 'Tạo ra một đơn hàng hợp lệ trong hệ thống và kích hoạt luồng xử lý phía sau']
+[112] TBL r7: ['Luồng sự kiện chính ']
+[112] TBL r8: ['Tác nhân', 'Hệ thống']
+[112] TBL r9: ['Xem lại thông tin đơn hàng lần cuối', '']
+[112] TBL r10: ['Bấm xác nhận đặt hàng', '']
+[112] TBL r11: ['', 'Kiểm tra tính hợp lệ của toàn bộ thông tin đơn hàng']
+[112] TBL r12: ['', 'Tạo mã đơn hàng duy nhất']
+[112] TBL r13: ['', "Phát sự kiện 'Đơn hàng được tạo' "]
+[112] TBL r14: ['', 'Hiển thị trang xác nhận đặt hàng thành công']
+[112] TBL r15: ['Luồng thay thế - A1: Thông tin không hợp lệ']
+[112] TBL r16: ['Tác nhân', 'Hệ thống']
+[112] TBL r17: ['Bấm xác nhận đặt hàng', '']
+[112] TBL r18: ['', 'Phát hiện thông tin không hợp lệ']
+[112] TBL r19: ['', 'Hiển thị thông báo lỗi và yêu cầu điều chỉnh']
+[112] TBL r20: ['Điều chỉnh thông tin và xác nhận lại', '']
+[112] TBL r21: ['Luồng thay thế - A2: Sản phẩm hết hàng giữa chừng']
+[112] TBL r22: ['Tác nhân', 'Hệ thống']
+[112] TBL r23: ['Bấm xác nhận đặt hàng', '']
+[112] TBL r24: ['', 'Phát hiện sản phẩm hết hàng']
+[112] TBL r25: ['', 'Thông báo và đề xuất sản phẩm thay thế']
+[112] TBL r26: ['Chọn sản phẩm thay thế hoặc bỏ sản phẩm', '']
+[112] TBL r27: ['Luồng ngoại lệ - E1: Lỗi hệ thống khi tạo đơn']
+[112] TBL r28: ['Tác nhân', 'Hệ thống']
+[112] TBL r29: ['Bấm xác nhận đặt hàng', '']
+[112] TBL r30: ['', 'Không thể tạo đơn hàng do lỗi hệ thống']
+[112] TBL r31: ['', 'Hiển thị thông báo lỗi; đơn hàng không được tạo']
+[112] TBL r32: ['', 'Ghi log lỗi để xử lý thủ công']
+[113] [            ] 
+[114] [            ] 
+[115] [            ] 
+[116] [Heading2    ] 3.2. Sự kiện 02 - Phân công giao hàng .
+[117] [            ] Mô tả sự kiện : Ngay khi đơn hàng chuyển sang trạng thái "Sẵn sàng giao", hệ thống tự động quét danh mục tài xế khả dụng trong khu vực, tính toán lộ trình tối ưu và đẩy đơn hàng trực tiếp xuống ứng dụng của tài xế
+[118] [            ] Mục tiêu của usecase : Tối ưu hóa việc phân bổ đơn hàng, giảm thiểu thời gian chờ tại kho, và đảm bảo sự công bằng/hiệu quả về quãng đường di chuyển của tài xế.
+[119] [            ] Mục tiêu của các tác nhân khi tham gia usecase : 
+[120] [            ] Điều phối viên: Giám sát tiến độ tự động, chỉ can thiệp khi có sự cố hoặc điều chỉnh thủ công trong trường hợp khẩn cấp.
+[121] [            ] Tài xế: Nhận đơn hàng phù hợp nhất với vị trí và tải trọng xe hiện tại.
+[122] [            ] Hệ thống: Thực thi thuật toán tối ưu (VRP - Vehicle Routing Problem) để ghép đơn và gán tài xế.
+[123] [            ] 
+[124] TBL r0: ['USE CASE: ']
+[124] TBL r1: ['Use Case ID', 'UC-02']
+[124] TBL r2: ['Tên Use Case', 'Phân công giao hàng']
+[124] TBL r3: ['Actor chính', 'Hệ thống phân công']
+[124] TBL r4: ['Actor phụ', 'Quản lý, tài xế ']
+[124] TBL r5: ['Mô tả', 'Hệ thống dựa trên các quy tắc (rules) và thuật toán để tự động gán đơn hàng cho tài xế phù hợp nhất.']
+[124] TBL r6: ['Mục tiêu', 'Tối đa hóa tỷ lệ giao hàng đúng hạn và tối thiểu hóa quãng đường di chuyển không tải.']
+[124] TBL r7: ['Luồng sự kiện chính ']
+[124] TBL r8: ['Tác nhân', 'Hệ thống']
+[124] TBL r9: ['', 'Kiểm tra định kỳ (hoặc theo sự kiện) các đơn hàng mới ở trạng thái "Sẵn sàng".']
+[124] TBL r10: ['', 'Lọc danh sách tài xế đang "Trống" (Available) trong bán kính cho phép.']
+[124] TBL r11: ['', 'Tính toán điểm ưu tiên (Score) dựa trên: Vị trí, tải trọng xe còn trống, và hiệu suất giao hàng của tài xế.Lựa chọn tài xế có điểm số cao nhất.']
+[124] TBL r12: ['', 'Gửi thông báo "Yêu cầu giao hàng mới" kèm thông tin chi tiết qua App của tài xế.']
+[124] TBL r13: ['Tài xế chấp nhận đơn hàng', '']
+[124] TBL r14: ['', 'Cập nhật trạng thái đơn hàng sang "Đã phân công".']
+[124] TBL r15: ['Luồng thay thế - A1: ']
+[124] TBL r16: ['Tác nhân', 'Hệ thống']
+[124] TBL r17: ['', 'Hệ thống phát hiện nhiều đơn hàng có cùng khu vực giao/cùng tuyến đường.']
+[124] TBL r18: ['', 'Thuật toán gom các đơn này thành một "Chuyến đi" (Trip).']
+[124] TBL r19: ['Tài xế  nhận danh sách 5-10 đơn hàng cùng lúc.', '']
+[124] TBL r20: ['Luồng ngoại lệ - E1: ']
+[124] TBL r21: ['Tác nhân', 'Hệ thống']
+[124] TBL r22: ['', 'Hệ thống quét trong bán kính 5km không có tài xế nào Online.Mở rộng bán kính tìm kiếm lên 10km hoặc chờ trong 2 phút để quét lại.']
+[124] TBL r23: ['', ' Nếu vẫn không tìm được, hệ thống gửi cảnh báo "Cần can thiệp thủ công" cho Điều phối viên.']
+[124] TBL r24: ['', ' Ghi nhận nhật ký lỗi phân công.']
+[125] [            ] 
+[126] [            ] 
+[127] [            ] 
+[128] [Heading2    ] 3.3. Sự kiện 03 - Vận chuyển đơn hàng 
+[129] [            ] Mô tả sự kiện : Sự kiện bắt đầu sau khi tài xế đã xác nhận nhận danh sách đơn hàng. Tài xế đến kho lấy hàng, xác nhận "Đã lấy hàng" và bắt đầu di chuyển theo lộ trình được hệ thống gợi ý. Trong quá trình này, hệ thống cập nhật vị trí liên tục cho khách hàng và kết thúc khi đơn hàng được giao thành công hoặc thất bại.
+[130] [            ] Mục tiêu của usecase : Hoàn tất việc đưa hàng hóa từ kho đến tay người nhận một cách an toàn, đúng thời gian và cập nhật minh chứng giao hàng
+[131] [            ] Mục tiêu của các tác nhân khi tham gia usecase: 
+[132] [            ] Tài xế: Giao hàng đúng lộ trình, tối ưu quãng đường và ghi nhận trạng thái giao hàng chính xác.
+[133] [            ] Khách hàng: Theo dõi được vị trí đơn hàng thời gian thực và nhận hàng đúng hạn.
+[134] [            ] Hệ thống: Giám sát hành trình (Tracking), tự động gửi thông báo cho khách và lưu trữ bằng chứng vận chuyển.
+[135] [            ] 
+[136] TBL r0: ['USE CASE: Vận chuyển đơn hàng']
+[136] TBL r1: ['Use Case ID', 'UC-03']
+[136] TBL r2: ['Tên Use Case', 'Vận chuyển đơn hàng']
+[136] TBL r3: ['Actor chính', 'Tài xế']
+[136] TBL r4: ['Actor phụ', 'Khách hàng, Hệ thống theo dõi, Hệ thống điều phối']
+[136] TBL r5: ['Mô tả', 'Theo dõi, định hướng quá trình tài xế di chuyển từ kho đến vị trí khách hàng, xử lý việc giao nhận và cập nhật trạng thái cuối cùng của đơn hàng.']
+[136] TBL r6: ['Mục tiêu', 'Đảm bảo đơn hàng được giao đúng vị trí và cập nhật trạng thái "Thành công" hoặc "Thất bại" lên hệ thống.']
+[136] TBL r7: ['Luồng sự kiện chính (a, b, c)']
+[136] TBL r8: ['Tài xế', 'Khách hàng', 'Module', 'Hệ thống theo dõi', 'Hệ thống điều phối']
+[136] TBL r9: ['Nhận hàng từ kho, nhấn "Bắt đầu hành trình" trên ứng dụng. Đi theo hành trình được hệ thống tính toán', '', 'Ghi nhận trạng thái "Bắt đầu hành trình" và thông báo cho Khách hàng', '', '']
+[136] TBL r10: ['Di chuyển theo lộ trình được tính toán', 'Theo dõi vị trí tài xế trên ứng dụng', 'Cập nhật vị trí và vết di chuyển trên giao diện', 'Cập nhật vị trí GPS và giao thông', 'Tối ưu liên tục tuyến đường dựa trên dữ liệu cung cấp bởi module']
+[136] TBL r11: ['', '', 'Cập nhật lại ETA mỗi 1p', '', '']
+[136] TBL r12: ['', '', '', 'Phát hiện sự cố giao thông', 'Tính lại lộ trình thay thế ETA và SLA']
+[136] TBL r13: ['Nhận lộ trình mới', '', 'Hiển thị lộ trình mới, thông báo tài xế', '', 'Gợi ý lộ trình thay thế với ETA không đổi']
+[136] TBL r14: ['Đến vị trí khách hàng, nhấn "Đã đến điểm giao"', '', 'Xác thực vị trí đã đến điểm giao. Gửi thông báo "Tài xế đã đến điểm giao" cho khách hàng', '', '']
+[136] TBL r15: ['Giao hàng cho khách, gọi cho khách, bắt đầu bàn giao hàng ', 'Gặp tài xế, đồng ý bàn giao hàng', '', '', '']
+[136] TBL r16: ['Luồng sự kiện thay thế (d): Điều chỉnh lộ trình']
+[136] TBL r17: ['Tài xế', 'Khách hàng', 'Module', 'Hệ thống theo dõi', 'Hệ thống điều phối']
+[136] TBL r18: ['Ghi nhận lộ trình mới', '', 'Nhận dữ liệu lộ trình mới, hiển thị trên giao diện, thông báo qua âm thanh', '', 'Tìm ra một lộ trình di chuyển tối ưu hơn']
+[136] TBL r19: ['Luồng sự kiện thay thế (e1): Vận chuyển hàng thất bại']
+[136] TBL r20: ['Tài xế', 'Khách hàng', 'Module', 'Hệ thống theo dõi', 'Hệ thống điều phối']
+[136] TBL r21: ['Thông báo cho hệ thống giao hàng thất bại do không thể thực hiện', 'Được thông báo hủy đơn bởi hệ thống.', 'Ghi nhận và cập nhật trạng thái đơn.', '', '']
+[136] TBL r22: ['Luồng sự kiện thay thế (e2): Vận chuyển hàng thất bại']
+[136] TBL r23: ['Tài xế', 'Khách hàng', 'Module', 'Hệ thống theo dõi', 'Hệ thống điều phối']
+[136] TBL r24: ['', '', 'Đến hạn ETA + tolerance, thông báo tài xế', '', '']
+[136] TBL r25: ['', 'Nhận thông báo hoãn đơn.', 'Không nhận được hồi âm, thông báo hoãn, giảm ETA và SLA', '', '']
+[136] TBL r26: ['', 'Nhận thông báo hủy đơn', 'Vẫn không nhận được hồi âm, hủy đơn hàng. Thông báo khách và tài xế. Lưu trữ sự cố.', '', '']
+[136] TBL r27: ['Luồng sự kiện thay thế (f): Khách hàng không đến nhận']
+[136] TBL r28: ['Tài xế', 'Khách hàng', 'Module', 'Hệ thống theo dõi', 'Hệ thống điều phối']
+[136] TBL r29: ['Thông báo cho hệ thống giao hàng thất bại do khách hàng không có mặt', 'Được thông báo hủy đơn bởi hệ thống.', 'Ghi nhận và cập nhật trạng thái đơn.', '', '']
+[136] TBL r30: ['', '', 'Cân nhắc trừ uy tín hoặc từ chối dịch vụ cho khách hàng.', '', '']
+[136] TBL r31: ['Luồng sự kiện thay thế (g): Khách hàng yêu cầu hoàn hàng trước khi giao nhận']
+[136] TBL r32: ['Tài xế', 'Khách hàng', 'Module', 'Hệ thống theo dõi', 'Hệ thống điều phối']
+[136] TBL r33: ['Thông báo cho hệ thống giao hàng thất bại do khách từ chối nhận', 'Được thông báo hủy đơn bởi hệ thống.', 'Ghi nhận và cập nhật trạng thái đơn', '', '']
+[136] TBL r34: ['', '', 'Cân nhắc trừ uy tín khách hàng', '', '']
+[137] [            ] 
+[138] [            ] Use case diagram:
+[139] [            ] 
+[140] [            ] 
+[141] [            ] Activity diagram:
+[142] [            ] 
+[143] [            ] 
+[144] [            ] 
+[145] [            ] 
+[146] [Heading2    ] 3.4. Sự kiện 04 - Xác nhận giao hàng
+[147] [            ] Mô tả sự kiện : Sự kiện xảy ra khi đơn hàng đã được giao tới người nhận và cần xác nhận trạng thái hoàn tất giao hàng trên hệ thống.
+[148] [            ] Mục tiêu của Usecase : Cập nhật trạng thái đơn hàng thành “Đã giao thành công”, đảm bảo dữ liệu chính xác cho việc thanh toán, báo cáo và theo dõi.
+[149] [            ] Mục tiêu của các tác nhân khi tham gia usecase : 
+[150] [            ] Shipper/Nhân viên giao hàng: Xác nhận đã giao hàng thành công.
+[151] [            ] Khách hàng: Xác nhận đã nhận hàng (nếu có cơ chế xác nhận từ khách).
+[152] [            ] Quản trị viên: Theo dõi và kiểm soát trạng thái đơn hàng.
+[153] [            ] 
+[154] [            ] 
+[155] TBL r0: ['USE CASE: ']
+[155] TBL r1: ['Use Case ID', 'UC-04']
+[155] TBL r2: ['Tên Use Case', 'Xác nhận giao hàng']
+[155] TBL r3: ['Actor chính', 'Shipper (Nhân viên giao hàng)']
+[155] TBL r4: ['Actor phụ', 'Khách hàng, Hệ thống thanh toán']
+[155] TBL r5: ['Mô tả', 'Shipper xác nhận việc giao hàng thành công trên hệ thống sau khi đã giao hàng cho khách']
+[155] TBL r6: ['Mục tiêu', 'Cập nhật trạng thái đơn hàng thành “Đã giao”, kích hoạt các quy trình liên quan (thanh toán, báo cáo)']
+[155] TBL r7: ['Luồng sự kiện chính']
+[155] TBL r8: ['Tác nhân', 'Hệ thống']
+[155] TBL r9: ['Shipper đăng nhập vào hệ thống', '']
+[155] TBL r10: ['', 'Hiển thị danh sách đơn hàng đang giao']
+[155] TBL r11: ['Shipper chọn đơn hàng cần xác nhận', '']
+[155] TBL r12: ['', 'Hiển thị chi tiết đơn hàng']
+[155] TBL r13: ['Shipper nhấn “Xác nhận giao hàng”', '']
+[155] TBL r14: ['', 'Yêu cầu xác nhận (có thể kèm chữ ký/OTP/hình ảnh)']
+[155] TBL r15: ['Shipper nhập/xác nhận thông tin', '']
+[155] TBL r16: ['', 'Kiểm tra tính hợp lệ']
+[155] TBL r17: ['', 'Cập nhật trạng thái đơn hàng = “Đã giao”']
+[155] TBL r18: ['', 'Ghi nhận thời gian giao hàng']
+[155] TBL r19: ['', 'Gửi thông báo cho khách hàng/quản trị']
+[155] TBL r20: ['', 'Hiển thị thông báo xác nhận thành công']
+[155] TBL r21: ['Luồng thay thế - A1: Khách hàng xác nhận']
+[155] TBL r22: ['Tác nhân', 'Hệ thống']
+[155] TBL r23: ['Khách hàng nhận hàng', '']
+[155] TBL r24: ['Khách hàng xác nhận qua app/SMS/OTP', '']
+[155] TBL r25: ['', 'Xác thực thông tin khách hàng']
+[155] TBL r26: ['', 'Cập nhật trạng thái “Đã giao”']
+[155] TBL r27: ['', 'Thông báo cho shipper và hệ thống']
+[155] TBL r28: ['Luồng ngoại lệ - E1: ']
+[155] TBL r29: ['Tác nhân', 'Hệ thống']
+[155] TBL r30: ['Shipper thực hiện xác nhận', '']
+[155] TBL r31: ['', 'Phát hiện lỗi (sai OTP / thiếu thông tin / mất kết nối)']
+[155] TBL r32: ['', 'Hiển thị thông báo lỗi']
+[155] TBL r33: ['Shipper nhập lại hoặc hủy thao tác', '']
+[155] TBL r34: ['', 'Không cập nhật trạng thái đơn hàng']
+[156] [            ] 
+[157] [            ] 
+[158] [Heading2    ] 3.5. Sự kiện 05 - Giao hàng hoàn tất 
+[159] [            ] Mô tả sự kiện: Shipper xác nhận giao hàng thành công, hệ thống thu thập bằng chứng (ảnh/chữ ký) và kích hoạt tính toán tài chính.
+[160] [            ] Mục tiêu của usecase: Hoàn tất dòng tiền, đối soát công nợ B2B và lưu trữ hồ sơ pháp lý minh bạch cho thiết bị giá trị cao. 
+[161] [            ] Mục tiêu của các tác nhân khi tham gia usecase: Shipper giải tỏa trách nhiệm hàng hóa; Admin/Kế toán kiểm soát doanh thu và khớp số liệu tồn kho theo thời gian thực. 
+[162] [            ] 
+[163] TBL r0: ['USE CASE: ']
+[163] TBL r1: ['Use Case ID', 'UC-05']
+[163] TBL r2: ['Tên Use Case', 'Giao hàng hoàn tất']
+[163] TBL r3: ['Actor chính', 'Nhân viên giao nhận (Shipper)']
+[163] TBL r4: ['Actor phụ', 'Hệ thống kế toán, Quản trị viên (Admin)']
+[163] TBL r5: ['Mô tả', 'Shipper thực hiện thu tiền (nếu có) hoặc xác nhận hoàn tất dịch vụ để hệ thống tính toán phí vận chuyển, trích hoa hồng và cập nhật công nợ cho đối tác.']
+[163] TBL r6: ['Mục tiêu', 'Hoàn tất dòng tiền của đơn hàng, đảm bảo sự minh bạch tài chính giữa Doanh nghiệp, Shipper và Đối tác.']
+[163] TBL r7: ['Luồng sự kiện chính ']
+[163] TBL r8: ['Tác nhân', 'Hệ thống']
+[163] TBL r9: ['Shipper xác nhận trạng thái "Giao hàng thành công" kèm bằng chứng.', '']
+[163] TBL r10: ['', 'Hệ thống kiểm tra hình thức thanh toán của đơn hàng (Trả trước/Công nợ/Tiền mặt).']
+[163] TBL r11: ['Shipper nhập số tiền đã thu thực tế (nếu là đơn COD).', '']
+[163] TBL r12: ['', 'Hệ thống tự động tính toán phí dịch vụ và trích hoa hồng môi giới (nếu có).']
+[163] TBL r13: ['', 'Ghi nhận số dư vào ví điện tử của Shipper hoặc sổ cái công nợ của Đối tác.']
+[163] TBL r14: ['', 'Phát sự kiện "Thanh toán hoàn tất" (PaymentCompleted).']
+[163] TBL r15: ['', 'Hiển thị xác nhận đối soát thành công và lưu trữ chứng từ điện tử.']
+[163] TBL r16: ['Luồng thay thế - A1: Sai lệch số tiền thu hộ']
+[163] TBL r17: ['Tác nhân', 'Hệ thống']
+[163] TBL r18: ['Shipper nhập số tiền thu hộ thấp hơn hoặc cao hơn giá trị đơn hàng.', '']
+[163] TBL r19: ['', 'Hệ thống cảnh báo sai lệch và yêu cầu nhập lý do (Ví dụ: Chiết khấu trực tiếp, khách trả thiếu).']
+[163] TBL r20: ['Shipper gửi yêu cầu phê duyệt sai lệch cho Admin.', '']
+[163] TBL r21: ['', 'Admin kiểm tra và bấm "Phê duyệt" hoặc "Từ chối".']
+[163] TBL r22: ['Luồng ngoại lệ - E1: Lỗi hệ thống khi thanh toán/đối soát']
+[163] TBL r23: ['Tác nhân', 'Hệ thống']
+[163] TBL r24: ['Bấm xác nhận thanh toán/đối soát.', '']
+[163] TBL r25: ['', 'Không thể cập nhật trạng thái đơn hàng/ví tiền do lỗi kết nối.']
+[163] TBL r26: ['', 'Hiển thị thông báo lỗi; Giao dịch chưa được ghi nhận.']
+[163] TBL r27: ['', 'Ghi log lỗi để Admin kiểm tra và xử lý thủ công.']
+[164] [            ] 
+[165] [            ] 
+[166] [            ] 
+[167] [Heading1    ] Ước lượng dự án theo UCP
+[168] [            ] 
+[169] TBL r0: ['BẢNG ƯỚC LƯỢNG DỰ ÁN – HỆ THỐNG QUẢN LÝ GIAO HÀNG (UCP)']
+[169] TBL r1: ['BẢNG ĐÁNH GIÁ TRỌNG SỐ TÁC NHÂN CHƯA HIỆU CHỈNH (UAW)']
+[169] TBL r2: ['Loại Tác Nhân', 'Mô tả', 'Hệ số Trọng số', 'Số lượng', 'Kết quả', 'Ghi chú / Danh sách']
+[169] TBL r3: ['', '', '', '', '', '']
+[169] TBL r4: ['Đơn giản', 'Hệ thống ngoài sử dụng API đầy đủ;||Hệ thống ngoài dùng giao thức, ví dụ HTTP, TCP/IP, hoặc môi cơ sở dữ liệu', '1', '3', '3', 'Hệ thống điều phối, Hệ thống theo dõi, Hệ thống thanh toán']
+[169] TBL r5: ['Trung bình', 'Hệ thống ngoài dùng giao thức, ví dụ HTTP, TCP/IP, hoặc môi cơ sở dữ liệu', '2', '0', '0', '']
+[169] TBL r6: ['Phức tạp', 'Con người – giao diện đồ họa phức tạp', '3', '2', '6', 'Khách hàng, Tài xế giao hàng']
+[169] TBL r7: ['Tổng trọng số tác nhân chưa hiệu chỉnh (UAW)', '9', '']
+[169] TBL r8: ['', '', '', '', '', '', '']
+[169] TBL r9: ['BẢNG ĐÁNH GIÁ TRỌNG SỐ CA SỬ DỤNG CHƯA HIỆU CHỈNH (UUCW)']
+[169] TBL r10: ['Loại Ca Sử Dụng', 'Mô tả', 'Hệ số Trọng số', 'Số lượng', 'Kết quả', 'Ghi chú / Danh sách']
+[169] TBL r11: ['Đơn giản', '1–3 giao dịch', '5', '1', '5', 'UC-01']
+[169] TBL r12: ['Trung bình', '4–7 giao dịch', '10', '3', '30', 'UC-02,UC-04,UC-05']
+[169] TBL r13: ['Phức tạp', '> 7 giao dịch', '15', '1', '15', 'UC-03']
+[169] TBL r14: ['Tổng trọng số ca sử dụng chưa hiệu chỉnh (UUCW)', '50', '']
+[169] TBL r15: ['Số điểm ca sử dụng chưa hiệu chỉnh (UUCP) = UAW + UUCW', '59', '']
+[169] TBL r16: ['', '', '', '', '', '', '']
+[169] TBL r17: ['CÁC CHỈ SỐ PHỨC TẠP KỸ THUẬT (TCF – Technical Complexity Factor)']
+[169] TBL r18: ['Mã chỉ số', 'Mô tả', 'Hệ số Trọng số', 'Đánh giá (0–5)', 'Kết quả trong số', 'NOTES']
+[169] TBL r19: ['T1', 'Hệ phân tán', '2', '4', '8', 'ứng dụng mobile + web + server']
+[169] TBL r20: ['T2', 'Chỉ số thời gian phản hồi/thông lượng', '1', '4', '4', 'Thời gian thực']
+[169] TBL r21: ['T3', 'Hiệu quả sử dụng thực tế', '1', '5', '5', '']
+[169] TBL r22: ['T4', 'Xử lý bên trong phức tạp', '1', '4', '4', 'Tối ưu đường đi']
+[169] TBL r23: ['T5', 'Tái sử dụng mã nguồn', '1', '3', '3', '']
+[169] TBL r24: ['T6', 'Dễ cài đặt', '0,5', '4', '2', 'Dễ cài đặt bởi khách hàng ,tài xế']
+[169] TBL r25: ['T7', 'Dễ sử dụng', '0,5', '4', '2', 'UI đơn giản cho khách hàng ,tài xế']
+[169] TBL r26: ['T8', 'Tính di chuyển', '2', '5', '10', '']
+[169] TBL r27: ['T9', 'Dễ bảo trì', '1', '3', '3', '']
+[169] TBL r28: ['T10', 'Tính song song/đồng thời', '1', '4', '4', '']
+[169] TBL r29: ['T11', 'Bao gồm các yêu cầu bảo mật đặc biệt', '1', '3', '3', '']
+[169] TBL r30: ['T12', 'Sử dụng mã nguồn từ/cho bên thứ ba', '1', '3', '3', '']
+[169] TBL r31: ['T13', 'Yêu cầu đặc biệt người dùng', '1', '4', '4', '']
+[169] TBL r32: ['Tổng trong kỹ thuật (TFactor)', '55', '']
+[169] TBL r33: ['Hệ số phức tạp kỹ thuật (TCF) = 0.6 + (0.01 × TFi)', 'TCF =', '', '1,15', '']
+[169] TBL r34: ['', '', '', '', '', '', '']
+[169] TBL r35: ['CÁC CHỈ SỐ MÔI TRƯỜNG (EF – Environment Factor)']
+[169] TBL r36: ['Mã chỉ số', 'Mô tả', 'Hệ số Trọng số', 'Đánh giá (0–5)', 'Kết quả trong số', 'NOTES']
+[169] TBL r37: ['E1', 'Có kinh nghiệm với quy trình phát triển hệ thống phân tán', '1,5', '2', '3', '']
+[169] TBL r38: ['E2', 'Có kinh nghiệm với ứng dụng', '0,5', '2', '1', '']
+[169] TBL r39: ['E3', 'Kinh nghiệm về cách tiếp cận hướng đối tượng', '1', '3', '3', '']
+[169] TBL r40: ['E4', 'Năng lực phân tích viên chính', '0,5', '2', '1', '']
+[169] TBL r41: ['E5', 'Động lực', '1', '2', '2', '']
+[169] TBL r42: ['E6', 'Tính ổn định của yêu cầu', '2', '4', '8', '']
+[169] TBL r43: ['E7', 'Nhân sự bán thời gian', '-1', '3', '-3', '']
+[169] TBL r44: ['E8', 'Kinh nghiệm lập trình', '-1', '2', '-2', '']
+[169] TBL r45: ['Tổng trong môi trường (EFactor)', '13', '']
+[169] TBL r46: ['Hệ số môi trường (EF) = 1.4 + (−0.03 × EFi)', 'EF =', '', '1,010', '']
+[169] TBL r47: ['', '', '', '', '', '', '']
+[169] TBL r48: ['TÍNH TOÁN SỐ ĐIỂM CA SỬ DỤNG SAU HIỆU CHỈNH VÀ CHI PHÍ']
+[169] TBL r49: ['Số điểm ca sử dụng chưa hiệu chỉnh', 'UUCP', '59,00', '']
+[169] TBL r50: ['Hệ số phức tạp kỹ thuật', 'TCF', '1,15', '']
+[169] TBL r51: ['Hệ số môi trường', 'EF', '1,01', '']
+[169] TBL r52: ['Số điểm ca sử dụng sau hiệu chỉnh (UCP = UUCP × TCF × EF)', 'UCP', '68,53', '']
+[169] TBL r53: ['', '', '', '', '', '', '']
+[169] TBL r54: ['ĐIỀU KIỆN ĐÁNH GIÁ VÀ LỰA CHỌN HỆ SỐ PHM']
+[169] TBL r55: ['Điếm #chỉ số môi trường bất lợi = #chỉ số môi trường trong số E1-E6 được đánh giá ≤ 3 + #chỉ số môi trường đánh giá > 3 (E7, E8 được đánh giá < 3)']
+[169] TBL r56: ['Nếu #chỉ số môi trường bất lợi ≤ 2 → PHM = 20']
+[169] TBL r57: ['Nếu #chỉ số môi trường bất lợi = 3 hoặc 4 → PHM = 28']
+[169] TBL r58: ['Ngược lại lớn hơn 4: nên xem xét lại dự án, vì rủi ro quá cao.']
+[169] TBL r59: ['', '', '', '', '', '', '']
+[169] TBL r60: ['Số lượng chỉ số môi trường bất lợi', '(nhập tay)', '4', '']
+[169] TBL r61: ['Số giờ công mỗi điểm ca sử dụng (PHM)', 'PHM =', '28', '']
+[169] TBL r62: ['', '', '', '', '', '', '']
+[169] TBL r63: ['CHI PHÍ PHÁT TRIỂN DỰ ÁN (GIỜ CÔNG)']
+[169] TBL r64: ['Số điểm ca sử dụng sau hiệu chỉnh', 'UCP', '68,5', '']
+[169] TBL r65: ['Số giờ công mỗi điểm ca sử dụng', 'PHM', '28,0', '']
+[169] TBL r66: ['Chi phí theo lý thuyết UCP (Giờ công = UCP × PHM)', 'Giờ công cơ sở', '1918,8', '']
+[170] [            ] 
+[171] [            ] Ước lượng dự án:
+[172] [            ] Thời gian ước lượng (Total Effort):
+[173] [            ] 
+[174] [            ] Chi phí theo tháng nhân lực () (Giả sử 150 giờ / 1 tháng):
+[175] [            ] 
+[176] [            ] 
+[177] [            ] Đánh giá Kích thước nhóm () và Thời gian tối ưu ():
+[178] [            ] Thời gian tối ưu ():
+[179] [            ] 
+[180] [            ] Kích thước nhóm trung bình ():
+[181] [            ] 
+[182] [            ] 
+[183] [Heading2    ] 7. Phân tích khả thi với cấu trúc đội thực tế.
+[184] [            ] Thời gian chia đều lý thuyết: E ÷ N = 12,79 ÷ 5 = 2,6 tháng
+[185] [            ] Tuy nhiên N = 5 > P = 2,2 - nhóm lớn hơn kích thước tối ưu hơn 2 lần. Theo Brook's Law, số kênh giao tiếp với 5 người là C(5,2) = 10 kênh, trong khi nhóm tối ưu 2 người chỉ có 1 kênh. Overhead phối hợp tăng đáng kể, làm giảm hiệu suất cận biên mỗi thành viên bổ sung. Do đó thời gian thực tế sẽ dài hơn mức chia đều 2,6 tháng, ước tính thực tế khoảng 3 – 4 tháng.
+[186] [            ] Để dự án vận hành tối ưu theo công thức (T = 5,85 tháng), nhóm lý tưởng là 2 – 3 người full-time. Đội 5 người vẫn có thể đẩy nhanh hơn 5,85 tháng nhưng sẽ không đạt mức lý thuyết 2,6 tháng do overhead quản lý.
+[187] [            ] 
+[188] [            ] 
+[189] [            ] Mô hình hóa cấu trúc
+[190] [Heading1    ] 1. Giới thiệu chương
+[191] [            ] Chương này xây dựng mô hình cấu trúc của hệ thống Quản lý Giao hàng LogiFast ở mức phân tích lĩnh vực. Mục tiêu là nhận diện các khái niệm nghiệp vụ cốt lõi (lớp lĩnh vực), các thuộc tính đặc trưng và mối quan hệ giữa chúng, tạo nền tảng cho thiết kế chi tiết ở Phần II.
+[192] [            ] Mô hình cấu trúc được xây dựng song song với mô hình chức năng: mỗi ca sử dụng trong Chương III dẫn đến một sơ đồ lớp lĩnh vực riêng, phản ánh đúng phạm vi và các đối tượng tham gia trực tiếp vào luồng sự kiện của ca đó. Sự khác biệt có chủ đích giữa các sơ đồ đảm bảo tính truy xuất trong ma trận CRUD sẽ được xây dựng ở Chương V.
+[193] [            ] 
+[194] [Heading1    ] 2. 
+[195] [Heading1    ] 3. Phân tích cấu trúc theo từng ca sử dụng
+[196] [            ] Chương được tổ chức thành năm mục, mỗi mục do một thành viên phụ trách và trình bày theo thứ tự: (1) sơ đồ đối tượng minh họa (1) sơ đồ lớp lĩnh vực, (2) kịch bản sử dụng cụ thể,, (4) thẻ CRC cho các lớp chính.
+[197] [            ] 
+[198] TBL r0: ['Mục', 'Ca sử dụng', 'Thành viên']
+[198] TBL r1: ['3.1', 'UC-01: Đặt đơn hàng', 'Trương Văn Hồng']
+[198] TBL r2: ['3.2', 'UC-02: Phân công giao hàng', 'Nguyễn Quý Duy']
+[198] TBL r3: ['3.3', 'UC-03: Vận chuyển đơn hàng', 'Phạm Gia Hưng']
+[198] TBL r4: ['3.4', 'UC-04: Xác nhận giao hàng', 'Đinh Việt Hùng']
+[198] TBL r5: ['3.5', 'UC-05: Giao hàng hoàn tất / Thanh toán', 'Nguyễn Ngọc Toàn']
+[199] [            ] 
+[200] [Heading2    ] 3.1. UC-01: Đặt đơn hàng
+[201] [Heading3    ] 3.1.1. Sơ đồ lớp lĩnh vực
+[202] [            ] [Chèn sơ đồ lớp lĩnh vực]
+[203] [Heading3    ] 3.1.2. Kịch bản sử dụng
+[204] [            ] [Mô tả kịch bản cụ thể và bảng đối tượng]
+[205] [Heading3    ] 3.1.3. Sơ đồ đối tượng
+[206] [            ] [Chèn sơ đồ đối tượng]
+[207] [Heading3    ] 3.1.4. Thẻ CRC
+[208] [            ] [Chèn thẻ CRC các lớp chính]
+[209] [Heading2    ] 3.2. UC-02: Phân công giao hàng
+[210] [Heading3    ] 3.2.1. Sơ đồ lớp lĩnh vực
+[211] [            ] [Chèn sơ đồ lớp lĩnh vực]
+[212] [Heading3    ] 3.2.2. Kịch bản sử dụng
+[213] [            ] [Mô tả kịch bản cụ thể và bảng đối tượng]
+[214] [Heading3    ] 3.2.3. Sơ đồ đối tượng
+[215] [            ] [Chèn sơ đồ đối tượng]
+[216] [Heading3    ] 3.2.4. Thẻ CRC
+[217] [            ] [Chèn thẻ CRC các lớp chính]
+[218] [Heading2    ] 3.3. UC-03: Vận chuyển đơn hàng
+[219] [Heading3    ] 3.3.1. Sơ đồ lớp lĩnh vực
+[220] [            ] [Chèn sơ đồ lớp lĩnh vực]
+[221] [Heading3    ] 3.3.2. Kịch bản sử dụng
+[222] [            ] [Mô tả kịch bản cụ thể và bảng đối tượng]
+[223] [Heading3    ] 3.3.3. Sơ đồ đối tượng
+[224] [            ] [Chèn sơ đồ đối tượng]
+[225] [Heading3    ] 3.3.4. Thẻ CRC
+[226] [            ] [Chèn thẻ CRC các lớp chính]
+[227] [Heading2    ] 3.4. UC-04: Xác nhận giao hàng
+[228] [Heading3    ] 3.4.1. Sơ đồ lớp lĩnh vực
+[229] [            ] [Chèn sơ đồ lớp lĩnh vực]
+[230] [Heading3    ] 3.4.2. Kịch bản sử dụng
+[231] [            ] [Mô tả kịch bản cụ thể và bảng đối tượng]
+[232] [Heading3    ] 3.4.3. Sơ đồ đối tượng
+[233] [            ] [Chèn sơ đồ đối tượng]
+[234] [Heading3    ] 3.4.4. Thẻ CRC
+[235] [            ] [Chèn thẻ CRC các lớp chính]
+[236] [Heading2    ] 3.5. UC-05: Giao hàng hoàn tất / Thanh toán
+[237] [Heading3    ] 3.5.1. Sơ đồ lớp lĩnh vực
+[238] [            ] [Chèn sơ đồ lớp lĩnh vực]
+[239] [Heading3    ] 3.5.2. Kịch bản sử dụng
+[240] [            ] [Mô tả kịch bản cụ thể và bảng đối tượng]
+[241] [Heading3    ] 3.5.3. Sơ đồ đối tượng
+[242] [            ] [Chèn sơ đồ đối tượng]
+[243] [Heading3    ] 3.5.4. Thẻ CRC
+[244] [            ] [Chèn thẻ CRC các lớp chính]
+[245] [            ] 
+[246] [            ] 
+[247] [            ] 
+[248] [            ] 

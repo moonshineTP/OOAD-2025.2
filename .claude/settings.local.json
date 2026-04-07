@@ -6,10 +6,13 @@
       "Bash(python3 -c \":*)",
       "Bash(mkdir -p '/mnt/c/Users/admin/Desktop/slide kỳ 6/OOAD/.claude/commands')",
       "Bash(mkdir -p '/mnt/c/Users/admin/Desktop/slide kỳ 6/OOAD/docs')",
-      "Bash(pip install:*)"
+      "Bash(pip install:*)",
+      "Bash(2>&1)",
+      "Bash(python scripts/create_ch5.py)",
+      "Bash(ls -lh \"/mnt/c/Users/admin/Desktop/slide kỳ 6/OOAD/Project/Diagrams/\"*StateMachine* \"/mnt/c/Users/admin/Desktop/slide kỳ 6/OOAD/Project/Diagrams/UC03_CommDiagram.puml\")"
     ]
   },
   "outputStyle": "default",
   "spinnerTipsEnabled": true,
-  "prefersReducedMotion": false
+  "prefersReducedMotion": true
 }

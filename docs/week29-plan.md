@@ -158,7 +158,7 @@ Với mỗi UC, xây dựng **một kịch bản cụ thể** với giá trị t
 | `kh1` | `KhachHang` | UC-01, UC-04 | KH-055 |
 | `dh1` | `DonHang` | UC-01÷UC-05 | ORD-2026-001 |
 | `sp1` | `SanPham` | UC-01 | SP-0099 |
-| `ctd1` | `ChiTietDonHang` | UC-01 | CTD-001-01 |
+| `ctkh1` | `ChiTietKienHang` | UC-01 | CTKH-01 |
 | `ptt1` | `PhuongThucThanhToan` | UC-01, UC-05 | PTT-COD |
 | `tx1` | `TaiXe` | UC-02, UC-03, UC-04 | TX-001 |
 | `ppc1` | `PhieuPhanCong` | UC-02 | PPC-2026-0326-001 |
@@ -194,8 +194,8 @@ Từ kịch bản thực tế, xác định **liên kết** giữa các đối t
 | Từ | Đến | Tên liên kết | Nguồn (UC) |
 |----|-----|-------------|-----------|
 | `kh1` | `dh1` | đặt | UC-01 |
-| `dh1` | `ctd1` | gồm | UC-01 |
-| `ctd1` | `sp1` | tham chiếu | UC-01 |
+| `dh1` | `ctkh1` | gồm | UC-01 |
+| `ctkh1` | `sp1` | tham chiếu | UC-01 |
 | `dh1` | `ptt1` | sử dụng | UC-01 |
 | `dh1` | `kh_pkg1` | chứa | UC-01, UC-03 |
 | `ppc1` | `dh1` | phân công | UC-02 |
@@ -241,8 +241,8 @@ classDiagram
         thoiGianDat = "2026-03-26T09:15:00"
     }
 
-    class `ctd1 : ChiTietDonHang` {
-        maChiTiet = "CTD-001-01"
+    class `ctkh1 : ChiTietKienHang` {
+        maChiTietKien = "CTKH-01"
         soLuong = 1
         donGia = 8500000
     }
@@ -370,8 +370,8 @@ classDiagram
 
     %% ── UC-01: Đặt đơn hàng ──
     `kh1 : KhachHang` --> `dh1 : DonHang` : đặt
-    `dh1 : DonHang` --> `ctd1 : ChiTietDonHang` : gồm
-    `ctd1 : ChiTietDonHang` --> `sp1 : SanPham` : tham chiếu
+    `dh1 : DonHang` --> `ctkh1 : ChiTietKienHang` : gồm
+    `ctkh1 : ChiTietKienHang` --> `sp1 : SanPham` : tham chiếu
     `dh1 : DonHang` --> `kh_pkg1 : KienHang` : chứa
     `dh1 : DonHang` --> `ptt1 : PhuongThucThanhToan` : sử dụng
 

@@ -1,0 +1,150 @@
+[ 81] P '4.3. UC-03: Vận chuyển đơn hàng'
+[ 82] P '4.3.1. Xác định kịch bản sử dụng'
+[ 83] P 'Đầu tiên ta nêu kịch bản sử dụng của use case này:'
+[ 84] P ''
+[ 85] P 'Tên kịch bản: '
+[ 86] P 'Tài xế TX-001 lấy hàng tại kho và giao thành công đến khách hàng KH-055'
+[ 87] P ''
+[ 88] P 'Diễn giải kịch bản:'
+[ 89] P '09:28 — TX-001 (Trần Minh Khoa) mở ứng dụng LogiFast Driver và xác nhận bắt đầu ca làm việc. Hệ thốn'
+[ 90] P '09:30 — TX-001 đến kho. Nhân viên kho xuất kiện hàng KH-PKG-001. TX-001 quét mã QR "QR-ORD-2026-001"'
+[ 91] P '09:31 — Hệ thống tính lộ trình tối ưu LT-2026-001: khoảng cách 9,2 km, thời gian dự kiến 35 phút (ET'
+[ 92] P '09:31 → 10:04 — Tài xế di chuyển theo lộ trình được chỉ định. Hệ thống ghi nhận ViTriGPS mỗi 30 giây'
+[ 93] P '10:04 — TX-001 cách địa chỉ giao khoảng 200m. Hệ thống tự động gửi thông báo "Shipper đang đến, ETA '
+[ 94] P '10:06 — TX-001 gặp chị Nguyễn Thị Lan — người nhận đơn — tại cửa "123 Nguyễn Văn Cừ, Q.5". Bàn giao '
+[ 95] P '10:06 (hoàn tất) — Hệ thống cập nhật: DonHang.trangThai → "Giao thành công"; KienHang.trangThai → "Đ'
+[ 96] P ''
+[ 97] P ''
+[ 98] P 'Bảng đối tượng UC-03:'
+[ 99] TBL r0: ['Lớp', 'Tên đối tượng', 'Thuộc tính chính (giá trị kịch bản)']
+[ 99] TBL r1: ['TaiXe', 'tx||1 :|| TaiXe', 'maTaiXe=TX-001, ten="Trần Minh Khoa", soDienThoai="0912345678", trangThai="Đã đến điểm giao", viTriHienTai="10.7525, 106.6624"']
+[ 99] TBL r2: ['DonHang', 'dh||1 :|| DonHang', 'maDonHang=ORD-2026-001, trangThai="Giao thành công", ||diaChiGiao="123 Nguyễn Văn Cừ, Q.5", tongGiaTri=8.500.000 VND']
+[ 99] TBL r3: ['KienHang', 'kh_pkg||1 :|| KienHang', 'maKienHang=KH-PKG-001, maQR="QR-ORD-2026-001", khoiLuong=0.35 kg, trangThai="Đã giao"']
+[ 99] TBL r4: ['LoTrinh', 'lt||1 :|| LoTrinh', 'maLoTrinh=LT-2026-001, diemXuatPhat="KHO-SGN-01", diemDen="123 Nguyễn Văn Cừ, Q.5", khoangCach=9.2 km, /thoiGianDuKien=35 phút, trangThai="Hoàn tất"']
+[ 99] TBL r5: ['ViTriGPS', 'gps||1 :|| ViTriGPS', 'maViTri=GPS-TX001-1006, viDo=10.7525, kinhDo=106.6624, thoiGian="2026-03-26T10:06:00" (điểm cuối hành trình)']
+[ 99] TBL r6: ['ChuyenDi', 'cd||1 :|| ChuyenDi', 'maChuyenDi=CD-2026-0326-T1, thoiGianBatDau="2026-03-26T09:28:00", thoiGianKetThuc="2026-03-26T10:10:00"']
+[ 99] TBL r7: ['BangChungGiaoHang', 'bc||1 :|| BangChungGiaoHang', 'maBangChung=BC-2026-001, tenNguoiNhan="Nguyễn Thị Lan", hinhAnh="proof_ORD-2026-001.jpg", toaDo="10.7525, 106.6624", thoiGianGiao="2026-03-26T10:06:00"']
+[100] P ''
+[101] P '4.3.2. Xác định đối tượng'
+[102] P 'Liên kết đối tượng UC-03:'
+[103] P 'Từ luồng sự kiện vận chuyển, các liên kết sau được xác định bằng cách đọc động từ kết nối danh từ tr'
+[104] TBL r0: ['Từ', 'Đến', 'Tên|| ||liên|| ||kết', 'Bước|| UC ||tương|| ||ứng']
+[104] TBL r1: ['cd||1 :|| ||ChuyenDi', 'lt||1 :|| ||LoTrinh', 'bao ||gồm', 'Bước|| 1 — ||tạo|| ||ChuyenDi|| + ||LoTrinh']
+[104] TBL r2: ['tx||1 :|| ||TaiXe', 'lt||1 :|| ||LoTrinh', 'thực|| ||hiện', 'Bước|| 3 — ||tài|| ||xế|| ||xuất|| ||phát|| ||theo|| ||lộ|| ||trình']
+[104] TBL r3: ['lt||1 :|| ||LoTrinh', 'dh||1 :|| ||DonHang', 'giao', 'Bước|| 3–6 — ||lộ|| ||trình|| ||phục|| ||vụ|| ||giao|| ||đơn']
+[104] TBL r4: ['lt||1 :|| ||LoTrinh', 'gps||1 :|| ||ViTriGPS', 'ghi|| ||nhận', 'Bước|| 4 — GPS ||cập|| ||nhật|| ||liên|| ||tục']
+[104] TBL r5: ['dh||1 :|| ||DonHang', 'kh_pkg||1 :|| ||KienHang', 'chứa', 'Bước|| 2 — ||quét|| QR ||xác|| ||nhận|| ||kiện|| ||hàng']
+[104] TBL r6: ['dh||1 :|| ||DonHang', 'bc||1 :|| ||BangChungGiaoHang', 'có|| ||bằng|| ||chứng', 'Bước|| 6 — ||tạo|| BC ||sau|| ||khi|| ||giao|| ||xong']
+[105] P ''
+[106] P 'Tất cả 6 liên kết trên phải có quan hệ tương ứng trong sơ đồ lớp lĩnh vực UC-03 (Mục 4.3.3). Cơ số đ'
+[107] P ''
+[108] P '[Chèn sơ đồ đối tượng ở đây]'
+[109] P '4.3.3. Sơ đồ lớp lĩnh vực'
+[110] P 'Sơ đồ lớp lĩnh vực UC-03 mô tả 7 lớp tham gia trực tiếp vào quy trình vận chuyển đơn hàng: TaiXe, Do'
+[111] P 'Sơ đồ 4.3.3 — Lược đồ lớp lĩnh vực UC-03 (phân tích):'
+[112] TBL r0: ['Lớp', 'Thuộc tính (phân tích — chỉ tên)', 'Ghi chú']
+[112] TBL r1: ['TaiXe', 'maTaiXe, ten, soDienThoai, trangThai, viTriHienTai', 'Kế thừa từ UC-02; xuất hiện như actor thực thi lộ trình']
+[112] TBL r2: ['DonHang', 'maDonHang, trangThai, diaChiGiao, tongGiaTri, hinhThucThanhToan, thoiGianDat', 'Kế thừa từ UC-01/02; trangThai thay đổi qua 3 giá trị trong UC-03']
+[112] TBL r3: ['KienHang', 'maKienHang, maQR, khoiLuong, trangThai', 'Đơn vị vật lý; maQR dùng để xác nhận lấy hàng tại kho']
+[112] TBL r4: ['LoTrinh', 'maLoTrinh, diemXuatPhat, diemDen, khoangCach, /thoiGianDuKien, trangThai', '/thoiGianDuKien là thuộc tính suy diễn từ khoangCach']
+[112] TBL r5: ['ViTriGPS', 'maViTri, viDo, kinhDo, thoiGian', 'Mỗi bản ghi là 1 snapshot GPS; 1 LoTrinh có nhiều ViTriGPS']
+[112] TBL r6: ['ChuyenDi', 'maChuyenDi, thoiGianBatDau, thoiGianKetThuc', 'Đại diện ca làm việc; bao gồm ≥1 LoTrinh']
+[112] TBL r7: ['BangChungGiaoHang', 'maBangChung, tenNguoiNhan, hinhAnh, toaDo, thoiGianGiao', 'Tạo sau khi giao thành công; dùng lại ở UC-04']
+[113] P ''
+[114] P 'Bảng quan hệ — UC-03:'
+[115] P 'Mọi quan hệ đều có tên và cơ số tại cả hai đầu theo quy tắc phân tích I.7.'
+[116] TBL r0: ['Từ lớp', 'Tên quan hệ', 'Đến lớp', 'Cơ số (Từ → Đến)', 'Loại']
+[116] TBL r1: ['ChuyenDi', 'bao gồm', 'LoTrinh', '1 → 1..*', 'Association']
+[116] TBL r2: ['TaiXe', 'thực hiện', 'LoTrinh', '1 → 0..*', 'Association']
+[116] TBL r3: ['LoTrinh', 'giao', 'DonHang', '1..* → 1', 'Association']
+[116] TBL r4: ['LoTrinh', 'ghi nhận', 'ViTriGPS', '1 → 1..*', 'Composition']
+[116] TBL r5: ['DonHang', 'chứa', 'KienHang', '1 → 1..*', 'Composition']
+[116] TBL r6: ['DonHang', 'có bằng chứng', 'BangChungGiaoHang', '1 → 0..1', 'Association']
+[117] P ''
+[118] P '[Chèn sơ đồ lớp lĩnh vực UC-03 — file: Project/Diagrams/UC03_ClassDiagram.drawio]'
+[119] P '4.3.4. Sơ đồ tuần tự hệ thống (SSD)'
+[120] P 'Sơ đồ tuần tự hệ thống (SSD) UC-03 mô tả chuỗi thông điệp trao đổi giữa Tài xế giao hàng (actor) và '
+[121] P 'Bảng thông điệp SSD — UC-03:'
+[122] P 'Các thông điệp dưới đây được đặt tên theo quy ước camelCase tiếng Việt; tham số trong ngoặc là dữ li'
+[123] TBL r0: ['#', 'Hướng', 'Tên thông điệp (tham số)', 'Bước UC-03', 'Ghi chú']
+[123] TBL r1: ['1', '→ :Hệ thống', 'xacNhanBatDauCa(maTaiXe)', 'Bước 1 — bắt đầu ca', 'Tạo ChuyenDi']
+[123] TBL r2: ['↩', ':Hệ thống →', 'xacNhanChuyenDi(maChuyenDi, danhSachDon)', '—', 'Trả về ChuyenDi + danh sách đơn cần giao']
+[123] TBL r3: ['2', '→ :Hệ thống', 'quetMaQR(maQR)', 'Bước 2 — xác nhận kiện hàng', 'Xác định KienHang theo mã QR']
+[123] TBL r4: ['↩', ':Hệ thống →', 'xacNhanKienHang(tenSanPham, diaChiGiao)', '—', 'Trả về chi tiết đơn nếu QR hợp lệ']
+[123] TBL r5: ['3', '→ :Hệ thống', 'batDauGiaoHang(maDonHang)', 'Bước 3 — xuất phát', 'DonHang.trangThai → Đang giao']
+[123] TBL r6: ['↩', ':Hệ thống →', 'hienThiLoTrinh(maLoTrinh, khoangCach, thoiGianDuKien)', '—', 'Tính LoTrinh tối ưu, trả ETA']
+[123] TBL r7: ['4', '→ :Hệ thống', 'capNhatViTriGPS(viDo, kinhDo)', 'Bước 4 — tracking hành trình', 'Ghi ViTriGPS, loop mỗi 30 giây']
+[123] TBL r8: ['↩', ':Hệ thống →', 'ghiNhanThanhCong()', '—', 'Xác nhận đã lưu tọa độ']
+[123] TBL r9: ['5', '→ :Hệ thống', 'xacNhanBanGiao(maDonHang, tenNguoiNhan, hinhAnh)', 'Bước 6 — bàn giao kiện hàng', 'Tạo BangChungGiaoHang']
+[123] TBL r10: ['↩', ':Hệ thống →', 'xacNhanGiaoHangThanhCong(maBangChung)', '—', 'DonHang.trangThai → Giao thành công; phát DeliveryCompleted']
+[124] P ''
+[125] P 'Lược đồ SSD (PlantUML):'
+[126] P 'Đoạn mã PlantUML dưới đây mô tả đầy đủ chuỗi thông điệp; sơ đồ được render và chèn vào tệp Project/D'
+[127] P '@startuml'
+[128] P 'skinparam style strictuml'
+[129] P ''
+[130] P 'actor "Tài xế giao hàng" as TX'
+[131] P 'participant ":Hệ thống LogiFast" as SYS'
+[132] P ''
+[133] P '== Bước 1: Bắt đầu ca làm việc =='
+[134] P 'TX -> SYS : xacNhanBatDauCa(maTaiXe)'
+[135] P 'SYS --> TX : xacNhanChuyenDi(maChuyenDi, danhSachDon)'
+[136] P ''
+[137] P '== Bước 2: Xác nhận lấy hàng tại kho =='
+[138] P 'TX -> SYS : quetMaQR(maQR)'
+[139] P 'SYS --> TX : xacNhanKienHang(tenSanPham, diaChiGiao)'
+[140] P ''
+[141] P '== Bước 3: Bắt đầu giao hàng =='
+[142] P 'TX -> SYS : batDauGiaoHang(maDonHang)'
+[143] P 'SYS --> TX : hienThiLoTrinh(maLoTrinh, khoangCach, thoiGianDuKien)'
+[144] P ''
+[145] P '== Bước 4: Tracking hành trình (lặp mỗi 30 giây) =='
+[146] P 'loop mỗi 30 giây'
+[147] P '  TX -> SYS : capNhatViTriGPS(viDo, kinhDo)'
+[148] P '  SYS --> TX : ghiNhanThanhCong()'
+[149] P 'end'
+[150] P ''
+[151] P '== Bước 5–6: Bàn giao và tạo bằng chứng =='
+[152] P 'TX -> SYS : xacNhanBanGiao(maDonHang, tenNguoiNhan, hinhAnh)'
+[153] P 'SYS --> TX : xacNhanGiaoHangThanhCong(maBangChung)'
+[154] P '@enduml'
+[155] P ''
+[156] P '[Chèn sơ đồ SSD UC-03 — file: Project/Diagrams/UC03_SSD.puml]'
+[157] P '4.3.5. Thẻ CRC'
+[158] P ''
+[159] P 'Thẻ CRC (Class–Responsibility–Collaborator) được lập cho 5 lớp lĩnh vực trung tâm của UC-03. Các lớp'
+[160] P ''
+[161] TBL r0: ['Tên lớp', 'ChuyenDi']
+[161] TBL r1: ['ID', 'CRC-UC03-01']
+[161] TBL r2: ['Tầng kiến trúc', 'Lĩnh vực (Domain)']
+[161] TBL r3: ['Mô tả', 'Đại diện cho một ca làm việc của tài xế, bao gồm một hoặc nhiều lộ trình giao hàng trong một ngày.']
+[161] TBL r4: ['Các thuộc tính', 'maChuyenDi, thoiGianBatDau, thoiGianKetThuc']
+[161] TBL r5: ['Các trách nhiệm', '1. Ghi nhận thời điểm bắt đầu và kết thúc ca làm việc.||2. Liên kết tài xế với tập hợp các lộ trình trong ca.||3. Cung cấp ngữ cảnh ca làm việc để tổng hợp hiệu suất.']
+[161] TBL r6: ['Các đối tác', 'TaiXe, LoTrinh']
+[162] P ''
+[163] TBL r0: ['Tên lớp', 'LoTrinh']
+[163] TBL r1: ['ID', 'CRC-UC03-02']
+[163] TBL r2: ['Tầng kiến trúc', 'Lĩnh vực (Domain)']
+[163] TBL r3: ['Mô tả', 'Tuyến đường từ kho xuất phát đến điểm giao hàng cho một đơn cụ thể; lưu trữ chuỗi tọa độ GPS toàn hành trình.']
+[163] TBL r4: ['Các thuộc tính', 'maLoTrinh, diemXuatPhat, diemDen, khoangCach, /thoiGianDuKien, trangThai']
+[163] TBL r5: ['Các trách nhiệm', '1. Lưu thông tin tuyến đường (điểm đầu, điểm cuối, khoảng cách).||2. Tập hợp các bản ghi ViTriGPS trong suốt hành trình.||3. Theo dõi trạng thái: Đang giao → Hoàn tất.||4. Cung cấp dữ liệu ETA cho ứng dụng tài xế.']
+[163] TBL r6: ['Các đối tác', 'ChuyenDi, TaiXe, DonHang, ViTriGPS']
+[164] P ''
+[165] TBL r0: ['Tên lớp', 'ViTriGPS']
+[165] TBL r1: ['ID', 'CRC-UC03-03']
+[165] TBL r2: ['Tầng kiến trúc', 'Lĩnh vực (Domain)']
+[165] TBL r3: ['Mô tả', 'Một bản ghi tọa độ GPS tại một thời điểm cụ thể trong hành trình; được ghi nhận mỗi 30 giây.']
+[165] TBL r4: ['Các thuộc tính', 'maViTri, viDo, kinhDo, thoiGian']
+[165] TBL r5: ['Các trách nhiệm', '1. Lưu tọa độ địa lý (vĩ độ, kinh độ) tại thời điểm ghi nhận.||2. Cung cấp dữ liệu cho tính năng theo dõi vị trí thời gian thực.||3. Tạo vết hành trình (breadcrumb trail) để kiểm tra sau giao.']
+[165] TBL r6: ['Các đối tác', 'LoTrinh']
+[166] P ''
+[167] TBL r0: ['Tên lớp', 'KienHang']
+[167] TBL r1: ['ID', 'CRC-UC03-04']
+[167] TBL r2: ['Tầng kiến trúc', 'Lĩnh vực (Domain)']
+[167] TBL r3: ['Mô tả', 'Đơn vị vật lý được vận chuyển; được xác nhận bằng mã QR khi tài xế lấy hàng tại kho.']
+[167] TBL r4: ['Các thuộc tính', 'maKienHang, maQR, khoiLuong, trangThai']
+[167] TBL r5: ['Các trách nhiệm', '1. Xác minh danh tính kiện hàng qua quét mã QR.||2. Theo dõi trạng thái vật lý: Đang vận chuyển → Đã giao.||3. Cung cấp thông tin khoiLuong để tính phí vận chuyển (UC-05).']
+[167] TBL r6: ['Các đối tác', 'DonHang']
+[168] P ''
+[169] P ''
+[170] END
